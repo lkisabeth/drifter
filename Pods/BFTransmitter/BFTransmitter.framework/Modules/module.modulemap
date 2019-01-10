@@ -1,0 +1,6 @@
+framework module BFTransmitter {
+  umbrella header "BFTransmitter.h"
+
+  export *
+  module * { export * }
+}

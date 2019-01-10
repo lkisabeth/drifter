@@ -1,0 +1,6 @@
+framework module Pods_Drifter {
+  umbrella header "Pods-Drifter-umbrella.h"
+
+  export *
+  module * { export * }
+}
