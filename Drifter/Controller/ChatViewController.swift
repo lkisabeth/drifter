@@ -108,12 +108,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTextfield.isEnabled = false
         sendButton.isEnabled = false
         
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
+        let firestore = myFirestore()
         
-        let messagesDB = db.collection("Messages")
+        let messagesDB = firestore.collection("Messages")
         let newMessage = Message(
             sender: (Auth.auth().currentUser?.email)!,
             messageBody: messageTextfield.text!
@@ -122,6 +119,19 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messagesDB.addDocument(data: newMessage.dictionary) // add error handling here!
         self.messageTextfield.text = ""
         self.messageTextfield.isEnabled = true
+    }
+    
+    fileprivate func myFirestore() -> Firestore {
+        let firestore: Firestore = Firestore.firestore()
+        let settings = firestore.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        firestore.settings = settings
+        return firestore
+    }
+    
+    fileprivate func baseQuery() -> Query {
+        let firestore = myFirestore()
+        return firestore.collection("Messages").limit(to: 50)
     }
     
     func retrieveMessages() {

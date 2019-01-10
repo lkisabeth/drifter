@@ -12,7 +12,6 @@ import Firebase
 
 class WelcomeViewController: UIViewController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +19,22 @@ class WelcomeViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             performSegue(withIdentifier: "goToChat", sender: self)
         }
+        
+        // Purple bar with white font
+        navigationController?.navigationBar.barTintColor =
+            UIColor.flatPurpleColorDark()
+        navigationController?.navigationBar.titleTextAttributes =
+            [ NSAttributedString.Key.foregroundColor: UIColor.white ]
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func didReceiveMemoryWarning() {
