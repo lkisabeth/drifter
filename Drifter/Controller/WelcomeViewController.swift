@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import ChameleonFramework
 
 class WelcomeViewController: UIViewController {
     
@@ -17,7 +17,7 @@ class WelcomeViewController: UIViewController {
         
         // Check if user already logged in, bypass login/register
         if Auth.auth().currentUser != nil {
-            performSegue(withIdentifier: "goToChat", sender: self)
+            performSegue(withIdentifier: "goToChatList", sender: self)
         }
         
         // Purple bar with white font

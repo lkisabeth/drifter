@@ -40,7 +40,7 @@ class LogInViewController: UIViewController {
                 
                 SVProgressHUD.dismiss()
                 
-                self.performSegue(withIdentifier: "goToChat", sender: self)
+                self.performSegue(withIdentifier: "goToChatList", sender: self)
             }
         }
     }

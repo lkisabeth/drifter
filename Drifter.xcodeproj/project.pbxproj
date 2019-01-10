@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07017B8F21E7DBBF00A8FDE8 /* ChatListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07017B8E21E7DBBF00A8FDE8 /* ChatListController.swift */; };
+		07017B9221E7F98200A8FDE8 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9121E7F98200A8FDE8 /* ExternalAccessory.framework */; };
+		07017B9421E7F99600A8FDE8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9321E7F99600A8FDE8 /* NetworkExtension.framework */; };
+		07017B9621E7F9B100A8FDE8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9521E7F9B100A8FDE8 /* AudioToolbox.framework */; };
+		07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9721E7F9B400A8FDE8 /* StoreKit.framework */; };
+		07017B9A21E7F9FC00A8FDE8 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */; };
 		07C822C921E6F546001A2832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822C821E6F546001A2832 /* AppDelegate.swift */; };
 		07C822D021E6F546001A2832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C822CE21E6F546001A2832 /* Main.storyboard */; };
 		07C822D221E6F547001A2832 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C822D121E6F547001A2832 /* Assets.xcassets */; };
@@ -47,6 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07017B8E21E7DBBF00A8FDE8 /* ChatListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListController.swift; sourceTree = "<group>"; };
+		07017B9021E7F96600A8FDE8 /* Drifter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Drifter.entitlements; sourceTree = "<group>"; };
+		07017B9121E7F98200A8FDE8 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		07017B9321E7F99600A8FDE8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		07017B9521E7F9B100A8FDE8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		07017B9721E7F9B400A8FDE8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		07C822C521E6F546001A2832 /* Drifter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drifter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C822C821E6F546001A2832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07C822CF21E6F546001A2832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,7 +97,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07017B9A21E7F9FC00A8FDE8 /* AuthenticationServices.framework in Frameworks */,
+				07017B9221E7F98200A8FDE8 /* ExternalAccessory.framework in Frameworks */,
+				07017B9421E7F99600A8FDE8 /* NetworkExtension.framework in Frameworks */,
+				07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */,
 				9C9770096EC663B017CFEE4D /* Pods_Drifter.framework in Frameworks */,
+				07017B9621E7F9B100A8FDE8 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +128,11 @@
 		051D829B459AE114A46D033B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */,
+				07017B9721E7F9B400A8FDE8 /* StoreKit.framework */,
+				07017B9521E7F9B100A8FDE8 /* AudioToolbox.framework */,
+				07017B9321E7F99600A8FDE8 /* NetworkExtension.framework */,
+				07017B9121E7F98200A8FDE8 /* ExternalAccessory.framework */,
 				9107A87C33F17BFE7AD080EB /* Pods_Drifter.framework */,
 				57C9FAD647F3A43A43F7D36F /* Pods_DrifterTests.framework */,
 				FA98EE2317B5F7E7AA2C8FE7 /* Pods_DrifterUITests.framework */,
@@ -142,6 +165,7 @@
 		07C822C721E6F546001A2832 /* Drifter */ = {
 			isa = PBXGroup;
 			children = (
+				07017B9021E7F96600A8FDE8 /* Drifter.entitlements */,
 				07C822FA21E6F7C7001A2832 /* Controller */,
 				07C822F921E6F7C2001A2832 /* Model */,
 				07C822F821E6F7B6001A2832 /* View */,
@@ -197,6 +221,7 @@
 				07C8230721E6F97D001A2832 /* RegisterViewController.swift */,
 				07C8230921E6F997001A2832 /* ViewController.swift */,
 				07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */,
+				07017B8E21E7DBBF00A8FDE8 /* ChatListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -296,6 +321,53 @@
 				TargetAttributes = {
 					07C822C421E6F546001A2832 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 1;
+							};
+							com.apple.ApplePay = {
+								enabled = 1;
+							};
+							com.apple.AutoFillCredentialProvider = {
+								enabled = 1;
+							};
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.HotspotConfiguration = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Multipath = {
+								enabled = 1;
+							};
+							com.apple.NearFieldCommunicationTagReading = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.Siri = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					07C822DA21E6F547001A2832 = {
 						CreatedOnToolsVersion = 10.1;
@@ -527,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07C822C921E6F546001A2832 /* AppDelegate.swift in Sources */,
+				07017B8F21E7DBBF00A8FDE8 /* ChatListController.swift in Sources */,
 				07C8230C21E6F9B8001A2832 /* WelcomeViewController.swift in Sources */,
 				07C8230221E6F8D7001A2832 /* Message.swift in Sources */,
 				07C8230421E6F93E001A2832 /* ChatViewController.swift in Sources */,
@@ -709,6 +782,7 @@
 			baseConfigurationReference = B5F3749E7D65E356DDBDA9C8 /* Pods-Drifter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;
 				INFOPLIST_FILE = Drifter/Info.plist;
@@ -728,6 +802,7 @@
 			baseConfigurationReference = F9DF16F703F40986E27037D7 /* Pods-Drifter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;
 				INFOPLIST_FILE = Drifter/Info.plist;
