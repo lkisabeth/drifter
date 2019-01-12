@@ -393,12 +393,8 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
             self.tableView.reloadData()
         }
     }
-    
-    
+
     // MARK: Clumsy data management
-    
-    // The methods in this section are not relevant to show
-    // the BFTransmitter functionality.
     
     func discardUUID(_ uuid: String) {
         if self.onlinePeers.index(of: uuid) != NSNotFound {

@@ -16,7 +16,6 @@
 		07C822C921E6F546001A2832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822C821E6F546001A2832 /* AppDelegate.swift */; };
 		07C822D021E6F546001A2832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C822CE21E6F546001A2832 /* Main.storyboard */; };
 		07C822D221E6F547001A2832 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C822D121E6F547001A2832 /* Assets.xcassets */; };
-		07C822D521E6F547001A2832 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C822D321E6F547001A2832 /* LaunchScreen.storyboard */; };
 		07C822E021E6F547001A2832 /* DrifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822DF21E6F547001A2832 /* DrifterTests.swift */; };
 		07C822EB21E6F547001A2832 /* DrifterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822EA21E6F547001A2832 /* DrifterUITests.swift */; };
 		07C822FE21E6F81F001A2832 /* CustomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822FD21E6F81F001A2832 /* CustomMessageCell.swift */; };
@@ -30,6 +29,7 @@
 		07DF102821E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
 		07DF102921E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
 		07DF102A21E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
+		07E9F2E721EA63340040DC4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */; };
 		429F3B64D7D36956FE4A49ED /* Pods_DrifterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C9FAD647F3A43A43F7D36F /* Pods_DrifterTests.framework */; };
 		9C9770096EC663B017CFEE4D /* Pods_Drifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9107A87C33F17BFE7AD080EB /* Pods_Drifter.framework */; };
 		E5FCCC2AD4DCEAE779EBE9ED /* Pods_DrifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA98EE2317B5F7E7AA2C8FE7 /* Pods_DrifterUITests.framework */; };
@@ -64,7 +64,6 @@
 		07C822C821E6F546001A2832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07C822CF21E6F546001A2832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07C822D121E6F547001A2832 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		07C822D421E6F547001A2832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07C822D621E6F547001A2832 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07C822DB21E6F547001A2832 /* DrifterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrifterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C822DF21E6F547001A2832 /* DrifterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrifterTests.swift; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		07C8230921E6F997001A2832 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11D6A887C8245EE7F80537AC /* Pods-DrifterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterUITests/Pods-DrifterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		254C4FC5EABCAB4436C40B56 /* Pods-DrifterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterTests/Pods-DrifterTests.release.xcconfig"; sourceTree = "<group>"; };
 		36BE5BB29EBBE60E09C39084 /* Pods-DrifterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterTests/Pods-DrifterTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			children = (
 				07C822FC21E6F800001A2832 /* Custom Message Cell */,
 				07C822CE21E6F546001A2832 /* Main.storyboard */,
-				07C822D321E6F547001A2832 /* LaunchScreen.storyboard */,
+				07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -404,10 +404,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07C822D521E6F547001A2832 /* LaunchScreen.storyboard in Resources */,
 				07C8230021E6F87D001A2832 /* MessageCell.xib in Resources */,
 				07DF102821E6FE3100E0E518 /* GoogleService-Info.plist in Resources */,
 				07C822D221E6F547001A2832 /* Assets.xcassets in Resources */,
+				07E9F2E721EA63340040DC4F /* LaunchScreen.storyboard in Resources */,
 				07C822D021E6F546001A2832 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,14 +650,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		07C822D321E6F547001A2832 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				07C822D421E6F547001A2832 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -782,6 +774,7 @@
 			baseConfigurationReference = B5F3749E7D65E356DDBDA9C8 /* Pods-Drifter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;
@@ -802,6 +795,7 @@
 			baseConfigurationReference = F9DF16F703F40986E27037D7 /* Pods-Drifter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;

@@ -12,11 +12,16 @@ import SVProgressHUD
 
 class RegisterViewController: UIViewController {
     
-    @IBOutlet var emailTextfield: UITextField!
-    @IBOutlet var passwordTextfield: UITextField!
-    
+    @IBOutlet var firstNameTextfield: UITextField!
+    @IBOutlet var lastNameTextfield: UITextField!
+    @IBOutlet var birthdayTextfield: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstNameTextfield.setBottomBorder()
+        lastNameTextfield.setBottomBorder()
+        birthdayTextfield.setBottomBorder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,7 +32,7 @@ class RegisterViewController: UIViewController {
         
         SVProgressHUD.show()
         
-        Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) {
+        /*Auth.auth().createUser(withEmail: emailTextfield.text!, password: lastNameTextfield.text!) {
             (user, error) in
             if error != nil {
                 print(error!)
@@ -38,7 +43,7 @@ class RegisterViewController: UIViewController {
                 
                 self.performSegue(withIdentifier: "goToChatList", sender: self)
             }
-        }
+        }*/
     }
     
 }
