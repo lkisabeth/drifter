@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 
+let primaryButtonColor = UIColor(red: 147/255, green: 55/255, blue: 218/255, alpha: 1)
+let secondaryButtonColor = UIColor(red: 73/255, green: 26/255, blue: 136/255, alpha: 1)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

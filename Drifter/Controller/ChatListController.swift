@@ -58,12 +58,10 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
     }
     
     @IBAction func logOut(_ sender: AnyObject) {
-        do {
-            try Auth.auth().signOut()
-            
-            navigationController?.popToRootViewController(animated: true)
-        } catch {
-            print("error, there was a problem signing out.")
+        try! Auth.auth().signOut()
+        if let storyboard = self.storyboard {
+            let vc = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+                self.present(vc, animated: false, completion: nil)
         }
     }
     
