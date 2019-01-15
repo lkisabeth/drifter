@@ -44,6 +44,8 @@ class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
         signUpButton.roundCorners(corners: [.topRight,.bottomRight], radius: 35)
     }
     
+    @IBAction func unwindToHome(_ sender: UIStoryboardSegue){}
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true

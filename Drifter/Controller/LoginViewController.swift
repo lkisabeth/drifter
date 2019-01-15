@@ -13,7 +13,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var emailTextfield: UITextField!
     @IBOutlet var passwordTextfield: UITextField!
-    @IBOutlet var dismissButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     var logInButton: RoundedLightPurpleButton!
     var activityView: UIActivityIndicatorView!
@@ -21,7 +21,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-        emailTextfield.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
@@ -42,6 +41,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(logInButton)
         setLogInButton(enabled: false)
         
+        backButton.addTarget(self, action: #selector(dismissKeyboard), for: .touchUpInside)
+        
         activityView = UIActivityIndicatorView(style: .white)
         activityView.color = .white
         activityView.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
@@ -53,22 +54,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         passwordTextfield.delegate = self
         emailTextfield.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         passwordTextfield.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { // Change `2.0` to the desired number of seconds.
+            self.emailTextfield.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        emailTextfield.resignFirstResponder()
-        passwordTextfield.resignFirstResponder()
         NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    
-    @IBAction func handleDismissButton(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
     }
     
     /**
@@ -98,12 +95,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         setLogInButton(enabled: formFilled)
     }
     
-    
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        // Resigns the target textField and assigns the next textField in the form.
-        
         switch textField {
         case emailTextfield:
             emailTextfield.resignFirstResponder()
@@ -116,6 +108,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             break
         }
         return true
+    }
+    
+    @objc func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
     }
     
     /**
