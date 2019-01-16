@@ -11,29 +11,33 @@ import BFTransmitter
 import Firebase
 import ChameleonFramework
 import TransitionButton
+import VegaScrollFlowLayout
 
-let onlineSection = 0
 var peersFile = "peersfile"
 var messageTextKey = "messageBody"
 var peerNameKey = "device_name"
 var peerTypeKey = "device_type"
 
-open class ChatListController: UITableViewController, BFTransmitterDelegate, ChatViewControllerDelegate {
+private let itemHeight: CGFloat = 84
+private let lineSpacing: CGFloat = 20
+private let xInset: CGFloat = 20
+private let topInset: CGFloat = 10
+
+open class ChatListController: UICollectionViewController, BFTransmitterDelegate, ChatViewControllerDelegate {
     
     fileprivate var openUUID: String = ""
-    fileprivate var openStateOnline: Bool = false
+    fileprivate var openStateOnline: Bool = true
     fileprivate var transmitter: BFTransmitter
     fileprivate var peerNamesDictionary: NSMutableDictionary
     fileprivate var onlinePeers: NSMutableArray
-    fileprivate var offlinePeers: NSMutableArray
     fileprivate weak var chatController: ChatViewController? = nil
+    fileprivate let cellId = "PeerCell"
     
     public required init?(coder aDecoder: NSCoder) {
         //Transmitter initialization
         self.transmitter = BFTransmitter(apiKey: "ed18b2d0-8a19-4ad6-9dce-311b66b13d99")
         self.peerNamesDictionary = NSMutableDictionary()
         self.onlinePeers = NSMutableArray()
-        self.offlinePeers = NSMutableArray()
         super.init(coder: aDecoder)
         self.transmitter.delegate = self
         self.transmitter.isBackgroundModeEnabled = true
@@ -51,6 +55,11 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
         let logOutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.logOut(_:)))
         navigationItem.leftBarButtonItem = logOutButton
         
+        let nib = UINib(nibName: cellId, bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: cellId)
+        collectionView.contentInset.bottom = itemHeight
+        configureCollectionViewLayout()
+        
         self.transmitter.start()
     }
     
@@ -66,74 +75,37 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
         }
     }
     
-    // MARK: Table view data source
-    
-    override open func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == onlineSection {
-            return self.onlinePeers.count
-        } else {
-            return self.offlinePeers.count
-        }
+    // MARK: Collection view data source
+
+    override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.onlinePeers.count
     }
     
-    override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String {
-        if section == onlineSection {
-            return "Online peers"
-        } else {
-            return "Offline peers"
-        }
-    }
-    
-    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "peerCell", for: indexPath)
-        let peerIdLabel = cell.contentView.viewWithTag(1000) as! UILabel
-        let onlineStatusLabel = cell.contentView.viewWithTag(1001) as! UILabel
-        let deviceTypeImageView = cell.contentView.viewWithTag(1002) as! UIImageView
-        var identifier: String
-        if indexPath.section == onlineSection {
-            onlineStatusLabel.textColor = UIColor.red
-            onlineStatusLabel.text = "ONLINE"
-            identifier = self.onlinePeers.object(at: indexPath.item) as! String
-        } else {
-            onlineStatusLabel.textColor = UIColor.gray
-            onlineStatusLabel.text = "OFFLINE"
-            identifier = self.offlinePeers.object(at: indexPath.item) as! String
-        }
+    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PeerCell
         
+        let identifier: String = self.onlinePeers.object(at: indexPath.item) as! String
         let peerInfo = self.peerNamesDictionary[identifier] as! Dictionary<String, Any>
-        
-        if peerInfo["name"] != nil {
-            let userDeviceName = peerInfo["name"] as! String
-            peerIdLabel.text = userDeviceName
-        }
-        
-        let devType: DeviceType = DeviceType(rawValue: peerInfo["type"] as! Int)!
-        switch devType {
-        case .undefined:
-            deviceTypeImageView.image = nil
-        case .android:
-            deviceTypeImageView.image = UIImage.init(named: "android")
-        case .ios:
-            deviceTypeImageView.image = UIImage.init(named: "ios")
-        }
-        
+
+        cell.configureWith(peerInfo)
+
         return cell
     }
     
-    // MARK: Table view delegate
+    private func configureCollectionViewLayout() {
+        guard let layout = collectionView.collectionViewLayout as? VegaScrollFlowLayout else { return }
+        layout.minimumLineSpacing = lineSpacing
+        layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        let itemWidth = UIScreen.main.bounds.width - 2 * xInset
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
     
-    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // MARK: collection view delegate
+    
+    override open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Prepares to open a conversation with a concrete user.
-        if indexPath.section == onlineSection {
-            openUUID = self.onlinePeers.object(at: indexPath.item) as! String
-            openStateOnline = true
-        } else {
-            openUUID = self.offlinePeers.object(at: indexPath.item) as! String
-            openStateOnline = false
-        }
+        openUUID = self.onlinePeers.object(at: indexPath.item) as! String
         self.performSegue(withIdentifier: "openContactChat", sender: self)
     }
     
@@ -255,8 +227,7 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
         self.discardUUID(user)
-        self.offlinePeers.add(user)
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
         if self.chatController != nil &&
             self.chatController!.userUUID == user {
             //If currently a the related conversation is shown,
@@ -286,14 +257,14 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
         // Check if there's a name saved for this user.
         processName(forUser: user)
         
-        //Update the table accord this new connection
+        //Update the collection accord this new connection
         if self.peerNamesDictionary[user] == nil {
             self.peerNamesDictionary.setValue("", forKey: user)
         }
         
         self.discardUUID(user)
         self.onlinePeers.add(user)
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
         if self.chatController != nil &&
             self.chatController!.userUUID == user {
             //If currently a the related conversation is shown,
@@ -388,7 +359,7 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
             let userInfo: Dictionary<String, Any> = ["name": name,
                                                      "type": receivedDeviceType]
             self.peerNamesDictionary.setValue(userInfo, forKey: user)
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
 
@@ -397,9 +368,6 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
     func discardUUID(_ uuid: String) {
         if self.onlinePeers.index(of: uuid) != NSNotFound {
             self.onlinePeers.remove(uuid)
-        }
-        if self.offlinePeers.index(of: uuid) != NSNotFound {
-            self.offlinePeers.remove(uuid)
         }
     }
     
@@ -438,10 +406,8 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
         let data: Data? = try? Data(contentsOf: URL(fileURLWithPath: filePath))
         if (data != nil) {
             self.peerNamesDictionary = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! NSMutableDictionary
-            self.offlinePeers = NSMutableArray(array: peerNamesDictionary.allKeys)
         } else {
             self.peerNamesDictionary = NSMutableDictionary()
-            self.offlinePeers = NSMutableArray()
         }
     }
     

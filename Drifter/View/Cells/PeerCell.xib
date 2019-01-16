@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PeerCell" id="gTV-IL-0wX" customClass="PeerCell" customModule="Drifter" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fK5-6h-1tU">
+                        <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+                        <subviews>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-f9-Xdb">
+                                <rect key="frame" x="249" y="0.0" width="138" height="146"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios" translatesAutoresizingMaskIntoConstraints="NO" id="F73-HK-Ou3" userLabel="Device Type Image View">
+                                        <rect key="frame" x="41" y="35" width="56" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="68" id="aer-wj-xJ1"/>
+                                            <constraint firstAttribute="width" constant="56" id="gLB-gK-TCl"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="F73-HK-Ou3" firstAttribute="top" secondItem="vRl-f9-Xdb" secondAttribute="top" constant="35" id="T9t-9X-yzz"/>
+                                    <constraint firstItem="F73-HK-Ou3" firstAttribute="leading" secondItem="vRl-f9-Xdb" secondAttribute="leading" constant="41" id="jey-mU-MXh"/>
+                                    <constraint firstAttribute="trailing" secondItem="F73-HK-Ou3" secondAttribute="trailing" constant="41" id="zcM-rq-B4R"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Peer ID" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWE-mQ-Ebu" userLabel="Peer ID Label">
+                                <rect key="frame" x="0.0" y="28" width="249" height="45"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZM-HM-ack" userLabel="Online Status Label">
+                                <rect key="frame" x="0.0" y="73" width="249" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.31557071208953857" green="0.35190755128860474" blue="0.39888250827789307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="height" secondItem="SWE-mQ-Ebu" secondAttribute="height" constant="-3" id="72o-IE-Hd2"/>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="width" secondItem="SWE-mQ-Ebu" secondAttribute="width" id="Bi4-1D-rzz"/>
+                            <constraint firstAttribute="bottom" secondItem="vRl-f9-Xdb" secondAttribute="bottom" id="Cmg-mW-cXB"/>
+                            <constraint firstAttribute="trailing" secondItem="vRl-f9-Xdb" secondAttribute="trailing" id="G8H-dS-DR6"/>
+                            <constraint firstAttribute="bottom" secondItem="iZM-HM-ack" secondAttribute="bottom" constant="31" id="GrJ-19-wnP"/>
+                            <constraint firstItem="vRl-f9-Xdb" firstAttribute="leading" secondItem="SWE-mQ-Ebu" secondAttribute="trailing" id="HVF-vK-tDC"/>
+                            <constraint firstItem="vRl-f9-Xdb" firstAttribute="top" secondItem="fK5-6h-1tU" secondAttribute="top" id="Nf8-qQ-Yrw"/>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="trailing" secondItem="SWE-mQ-Ebu" secondAttribute="trailing" id="Okr-kH-wVq"/>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="top" secondItem="SWE-mQ-Ebu" secondAttribute="bottom" id="RSP-fa-8EQ"/>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="leading" secondItem="SWE-mQ-Ebu" secondAttribute="leading" id="b2L-VK-8TP"/>
+                            <constraint firstItem="iZM-HM-ack" firstAttribute="leading" secondItem="fK5-6h-1tU" secondAttribute="leading" id="elB-AZ-VkY"/>
+                            <constraint firstItem="SWE-mQ-Ebu" firstAttribute="leading" secondItem="fK5-6h-1tU" secondAttribute="leading" id="t3H-QV-l2h"/>
+                            <constraint firstItem="SWE-mQ-Ebu" firstAttribute="top" secondItem="fK5-6h-1tU" secondAttribute="top" constant="28" id="udn-XF-Ya4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="fK5-6h-1tU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5Hd-mk-ksn"/>
+                <constraint firstAttribute="bottom" secondItem="fK5-6h-1tU" secondAttribute="bottom" id="Bhx-2L-dmd"/>
+                <constraint firstItem="fK5-6h-1tU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Tfu-aV-0SJ"/>
+                <constraint firstAttribute="trailing" secondItem="fK5-6h-1tU" secondAttribute="trailing" id="Vu8-kr-vwO"/>
+            </constraints>
+            <size key="customSize" width="387" height="146"/>
+            <connections>
+                <outlet property="deviceTypeImageView" destination="F73-HK-Ou3" id="DaO-wP-8dS"/>
+                <outlet property="onlineStatusLabel" destination="iZM-HM-ack" id="7Qm-dc-FvT"/>
+                <outlet property="peerIdLabel" destination="SWE-mQ-Ebu" id="Ji8-os-Qpj"/>
+            </connections>
+            <point key="canvasLocation" x="231.19999999999999" y="-138.53073463268368"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ios" width="82.5" height="100"/>
+    </resources>
+</document>

@@ -183,6 +183,7 @@ PODS:
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.2):
     - TwitterCore (>= 3.2.0)
+  - VegaScrollFlowLayout (1.1)
 
 DEPENDENCIES:
   - BFTransmitter
@@ -192,6 +193,7 @@ DEPENDENCIES:
   - FirebaseUI
   - SVProgressHUD
   - TransitionButton
+  - VegaScrollFlowLayout
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -227,6 +229,7 @@ SPEC REPOS:
     - TransitionButton
     - TwitterCore
     - TwitterKit
+    - VegaScrollFlowLayout
 
 SPEC CHECKSUMS:
   BFTransmitter: e1c9c1f504dfb138502a9a8a9f17c1ebf85a8c15
@@ -261,7 +264,8 @@ SPEC CHECKSUMS:
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
+  VegaScrollFlowLayout: 9158061f29179147755f937c2b21693fc5dbbac3
 
-PODFILE CHECKSUM: e0c80624f04fc80154c5ad1adb79afd2fa089f69
+PODFILE CHECKSUM: e52f32f6f50ae08d8e550e73164e765bad5ef2d6
 
 COCOAPODS: 1.5.3

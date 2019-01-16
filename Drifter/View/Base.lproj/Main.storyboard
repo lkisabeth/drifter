@@ -155,86 +155,34 @@
             </objects>
             <point key="canvasLocation" x="3009" y="-729"/>
         </scene>
-        <!--Peer list-->
-        <scene sceneID="wpu-xP-GBJ">
+        <!--Peer List-->
+        <scene sceneID="OPN-DR-xKP">
             <objects>
-                <tableViewController title="Peer list" modalTransitionStyle="crossDissolve" id="UyF-0M-2gS" customClass="ChatListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" id="2JP-Ow-Y6N">
+                <collectionViewController title="Peer List" id="zW3-3s-9l9" customClass="ChatListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1Se-TJ-Q3B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="peerCell" rowHeight="77" id="edL-Nn-qpn">
-                                <rect key="frame" x="0.0" y="28" width="414" height="77"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="edL-Nn-qpn" id="OmE-hc-ng8">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="76.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identifier: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h48-Mp-ZO0">
-                                            <rect key="frame" x="15" y="10" width="96" height="24"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQy-Hk-eIv">
-                                            <rect key="frame" x="15" y="37" width="297" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="297" id="yXy-dY-LcE"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" tag="1002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios" translatesAutoresizingMaskIntoConstraints="NO" id="1He-vX-Ser">
-                                            <rect key="frame" x="324" y="31" width="35" height="35"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="35" id="V83-mA-Nst"/>
-                                            </constraints>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="h48-Mp-ZO0" secondAttribute="trailing" constant="20" symbolic="YES" id="6X4-a6-TK1"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="1He-vX-Ser" secondAttribute="trailing" constant="35" id="H9s-hZ-oAA"/>
-                                        <constraint firstItem="1He-vX-Ser" firstAttribute="bottom" secondItem="OmE-hc-ng8" secondAttribute="bottomMargin" id="d99-DD-dyb"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="eQy-Hk-eIv" secondAttribute="bottom" constant="8" id="eIK-yW-79g"/>
-                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="leading" secondItem="h48-Mp-ZO0" secondAttribute="leading" id="etN-8q-SFr"/>
-                                        <constraint firstItem="1He-vX-Ser" firstAttribute="leading" secondItem="eQy-Hk-eIv" secondAttribute="trailing" constant="12" id="wRo-G8-h7R"/>
-                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="top" secondItem="h48-Mp-ZO0" secondAttribute="bottom" constant="3" id="xGd-sp-K37"/>
-                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="leading" secondItem="OmE-hc-ng8" secondAttribute="leadingMargin" constant="-5" id="zY9-GP-qim"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PQv-7X-k2s">
+                            <size key="itemSize" width="396" height="134"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
                         <connections>
-                            <outlet property="dataSource" destination="UyF-0M-2gS" id="QAU-n8-yWL"/>
-                            <outlet property="delegate" destination="UyF-0M-2gS" id="8jd-tu-o3z"/>
+                            <outlet property="dataSource" destination="zW3-3s-9l9" id="ILn-gs-inF"/>
+                            <outlet property="delegate" destination="zW3-3s-9l9" id="dwe-sX-MGb"/>
                         </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="spA-Qs-nja"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Peer list" id="r2G-xm-36K">
-                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="jPY-NO-gEo">
-                            <connections>
-                                <action selector="logOut:" destination="UyF-0M-2gS" id="tWe-yP-eNA"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Broadcast" id="6Uy-jf-0AH">
-                            <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <segue destination="pZt-uc-JLk" kind="show" identifier="openBroadcastChat" id="68E-bU-fkX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="JnB-f4-tQF"/>
                     <connections>
-                        <outlet property="tableView" destination="2JP-Ow-Y6N" id="hhr-Es-w71"/>
-                        <segue destination="pZt-uc-JLk" kind="show" identifier="openContactChat" id="p1f-23-EVS"/>
+                        <outlet property="collectionView" destination="1Se-TJ-Q3B" id="Xk5-hH-yGu"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zu3-WD-ebz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5cr-yL-pe7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4122" y="9"/>
+            <point key="canvasLocation" x="4139" y="9"/>
         </scene>
         <!--Item-->
         <scene sceneID="9wU-V9-GaZ">
@@ -351,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8S-Cw-8Go" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4884" y="9"/>
+            <point key="canvasLocation" x="5036" y="-335"/>
         </scene>
         <!--LogInViewController-->
         <scene sceneID="vYw-R4-J5X">
@@ -717,7 +665,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="UyF-0M-2gS" kind="relationship" relationship="rootViewController" id="Em3-Fr-TSy"/>
+                        <segue destination="zW3-3s-9l9" kind="relationship" relationship="rootViewController" id="Cqa-2w-tV8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCo-ew-a0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -768,7 +716,4 @@
         <image name="drifterBackground" width="414" height="896"/>
         <image name="ios" width="82.5" height="100"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="p1f-23-EVS"/>
-    </inferredMetricsTieBreakers>
 </document>

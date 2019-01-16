@@ -13,6 +13,7 @@ target 'Drifter' do
   pod 'Fabric'
   pod 'BFTransmitter'
   pod 'TransitionButton'
+  pod 'VegaScrollFlowLayout'
 
   target 'DrifterTests' do
     inherit! :search_paths
