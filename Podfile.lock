@@ -179,6 +179,7 @@ PODS:
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
   - SVProgressHUD (2.2.5)
+  - TransitionButton (0.5.2)
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.2):
     - TwitterCore (>= 3.2.0)
@@ -190,6 +191,7 @@ DEPENDENCIES:
   - Firebase
   - FirebaseUI
   - SVProgressHUD
+  - TransitionButton
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -222,6 +224,7 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - SVProgressHUD
+    - TransitionButton
     - TwitterCore
     - TwitterKit
 
@@ -255,9 +258,10 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: e5aee7ca9747e3df4ccb618dac1ee599531eac1d
+PODFILE CHECKSUM: e0c80624f04fc80154c5ad1adb79afd2fa089f69
 
 COCOAPODS: 1.5.3

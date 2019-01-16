@@ -12,6 +12,7 @@ target 'Drifter' do
   pod 'ChameleonFramework'
   pod 'Fabric'
   pod 'BFTransmitter'
+  pod 'TransitionButton'
 
   target 'DrifterTests' do
     inherit! :search_paths

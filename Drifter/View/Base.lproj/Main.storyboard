@@ -54,7 +54,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j49-e1-Mty" kind="custom" identifier="LogInSegue" customClass="CircleSegue" customModule="Drifter" customModuleProvider="target" id="4kk-xp-4fZ"/>
+                                    <segue destination="j49-e1-Mty" kind="custom" identifier="logInCircleSegue" customClass="CircleSegue" customModule="Drifter" customModuleProvider="target" id="4kk-xp-4fZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -158,7 +158,7 @@
         <!--Peer list-->
         <scene sceneID="wpu-xP-GBJ">
             <objects>
-                <tableViewController title="Peer list" id="UyF-0M-2gS" customClass="ChatListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Peer list" modalTransitionStyle="crossDissolve" id="UyF-0M-2gS" customClass="ChatListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" id="2JP-Ow-Y6N">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -171,31 +171,44 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="76.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Identifier: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h48-Mp-ZO0">
-                                            <rect key="frame" x="15" y="8" width="364" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Identifier: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h48-Mp-ZO0">
+                                            <rect key="frame" x="15" y="10" width="96" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQy-Hk-eIv">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQy-Hk-eIv">
                                             <rect key="frame" x="15" y="37" width="297" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="297" id="yXy-dY-LcE"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="1002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ios" translatesAutoresizingMaskIntoConstraints="NO" id="1He-vX-Ser">
+                                        <imageView userInteractionEnabled="NO" tag="1002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios" translatesAutoresizingMaskIntoConstraints="NO" id="1He-vX-Ser">
                                             <rect key="frame" x="324" y="31" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="V83-mA-Nst"/>
+                                            </constraints>
                                         </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="h48-Mp-ZO0" secondAttribute="trailing" constant="20" symbolic="YES" id="6X4-a6-TK1"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="1He-vX-Ser" secondAttribute="trailing" constant="35" id="H9s-hZ-oAA"/>
+                                        <constraint firstItem="1He-vX-Ser" firstAttribute="bottom" secondItem="OmE-hc-ng8" secondAttribute="bottomMargin" id="d99-DD-dyb"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eQy-Hk-eIv" secondAttribute="bottom" constant="8" id="eIK-yW-79g"/>
+                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="leading" secondItem="h48-Mp-ZO0" secondAttribute="leading" id="etN-8q-SFr"/>
+                                        <constraint firstItem="1He-vX-Ser" firstAttribute="leading" secondItem="eQy-Hk-eIv" secondAttribute="trailing" constant="12" id="wRo-G8-h7R"/>
+                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="top" secondItem="h48-Mp-ZO0" secondAttribute="bottom" constant="3" id="xGd-sp-K37"/>
+                                        <constraint firstItem="eQy-Hk-eIv" firstAttribute="leading" secondItem="OmE-hc-ng8" secondAttribute="leadingMargin" constant="-5" id="zY9-GP-qim"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="UyF-0M-2gS" id="ffa-f8-23P"/>
-                            <outlet property="delegate" destination="UyF-0M-2gS" id="hab-Ga-cSY"/>
+                            <outlet property="dataSource" destination="UyF-0M-2gS" id="QAU-n8-yWL"/>
+                            <outlet property="delegate" destination="UyF-0M-2gS" id="8jd-tu-o3z"/>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="spA-Qs-nja"/>
@@ -215,12 +228,13 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="tableView" destination="2JP-Ow-Y6N" id="hhr-Es-w71"/>
                         <segue destination="pZt-uc-JLk" kind="show" identifier="openContactChat" id="p1f-23-EVS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zu3-WD-ebz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4621.739130434783" y="95.758928571428569"/>
+            <point key="canvasLocation" x="4122" y="9"/>
         </scene>
         <!--Item-->
         <scene sceneID="9wU-V9-GaZ">
@@ -337,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8S-Cw-8Go" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5384.057971014493" y="95.758928571428569"/>
+            <point key="canvasLocation" x="4884" y="9"/>
         </scene>
         <!--LogInViewController-->
         <scene sceneID="vYw-R4-J5X">
@@ -504,7 +518,7 @@
         <!--SignUpViewController-->
         <scene sceneID="2us-VA-KeW">
             <objects>
-                <viewController title="SignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="2Xu-TK-PcG" customClass="SignUpViewController" customModule="FirebaseApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SignUpViewController" automaticallyAdjustsScrollViewInsets="NO" id="2Xu-TK-PcG" customClass="SignUpViewController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Us7-T9-nUP"/>
                         <viewControllerLayoutGuide type="bottom" id="dyL-L3-uCh"/>
@@ -694,7 +708,7 @@
         <!--Item-->
         <scene sceneID="bxX-yb-4sf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JDp-Lp-7PN" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="JDp-Lp-7PN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="vgV-ol-K6J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q8J-bc-ee4">
@@ -708,12 +722,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCo-ew-a0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3747.826086956522" y="124.55357142857142"/>
+            <point key="canvasLocation" x="3464" y="9"/>
         </scene>
         <!--MainTabBarController-->
         <scene sceneID="CNa-a6-D99">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" title="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcm-2O-QVA" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" title="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcm-2O-QVA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mui-vQ-oXd">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -726,7 +740,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfW-70-re1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2871.0144927536235" y="95.758928571428569"/>
+            <point key="canvasLocation" x="2809" y="9"/>
         </scene>
         <!--NavigationController-->
         <scene sceneID="2B8-Wo-YlW">
@@ -755,6 +769,6 @@
         <image name="ios" width="82.5" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="68E-bU-fkX"/>
+        <segue reference="p1f-23-EVS"/>
     </inferredMetricsTieBreakers>
 </document>

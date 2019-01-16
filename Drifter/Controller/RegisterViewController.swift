@@ -6,9 +6,9 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
+import TransitionButton
 
 class SignUpViewController:UIViewController, UITextFieldDelegate {
     
@@ -17,8 +17,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     
-    var signUpButton: RoundedLightPurpleButton!
-    var activityView: UIActivityIndicatorView!
+    var signUpButton = TransitionButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,27 +28,20 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
-        signUpButton = RoundedLightPurpleButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+
+        signUpButton.backgroundColor = secondaryButtonColor
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.setTitle("Sign Up", for: .normal)
-        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.bold)
+        signUpButton.cornerRadius = 25
+        signUpButton.spinnerColor = .white
         signUpButton.center = CGPoint(x: view.center.x, y: view.frame.height - signUpButton.frame.height - 218)
-        signUpButton.highlightedColor = secondaryButtonColor
-        signUpButton.defaultColor = secondaryButtonColor
         signUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        signUpButton.alpha = 0.5
         
         view.addSubview(signUpButton)
         setsignUpButton(enabled: false)
         
         backButton.addTarget(self, action: #selector(dismissKeyboard), for: .touchUpInside)
-        
-        activityView = UIActivityIndicatorView(style: .white)
-        activityView.color = secondaryButtonColor
-        activityView.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
-        activityView.center = signUpButton.center
-        
-        view.addSubview(activityView)
         
         usernameField.delegate = self
         emailField.delegate = self
@@ -59,7 +51,8 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         emailField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { // Change `2.0` to the desired number of seconds.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            // this is to prevent keyboard flickering
             self.usernameField.becomeFirstResponder()
         }
     }
@@ -80,7 +73,6 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         
         signUpButton.center = CGPoint(x: view.center.x,
                                         y: view.frame.height - keyboardFrame.height - 30.0 - signUpButton.frame.height / 2)
-        activityView.center = signUpButton.center
     }
     
     /**
@@ -134,48 +126,48 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         guard let username = usernameField.text else { return }
         guard let email = emailField.text else { return }
         guard let pass = passwordField.text else { return }
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         
-        setsignUpButton(enabled: false)
-        signUpButton.setTitle("", for: .normal)
-        activityView.startAnimating()
+        signUpButton.startAnimation()
         
-        Auth.auth().createUser(
-            withEmail: email,
-            password: pass,
-            completion: { (user, error) in
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        
+        backgroundQueue.async {
+            Auth.auth().createUser(withEmail: email, password: pass) { user, error in
                 if error != nil {
-                    print(error!)
-                    self.resetForm()
+                    self.signUpButton.stopAnimation(animationStyle: .shake) {
+                        print(error!)
+                        self.resetForm()
+                    }
                 } else {
                     let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                     changeRequest?.displayName = username
-                    changeRequest?.commitChanges { (error) in
-                        print("COULD NOT UPDATE DISPLAYNAME")
-                        self.resetForm()
+                    changeRequest?.commitChanges { error in
+                        if error != nil {
+                            print(error!)
+                            self.resetForm()
+                        } else {
+                            self.signUpButton.stopAnimation(animationStyle: .expand) {
+                                if let storyboard = self.storyboard {
+                                    let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+                                    self.present(vc, animated: true, completion: nil)
+                                }
+                            }
+                        }
                     }
                 }
-            })
+            }
+        }
     }
 
     func resetForm() {
-        let alert = UIAlertController(title: "Error signing up", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error signing up", message: "Please try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         
         setsignUpButton(enabled: true)
-        signUpButton.setTitle("Sign Up", for: .normal)
-        activityView.stopAnimating()
     }
-    
-    func saveProfile(username:String, completion: @escaping ((_ success:Bool)->())) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let databaseRef = Database.database().reference().child("users/profile/\(uid)")
-        
-        let userObject = ["username": username]
-        
-        databaseRef.setValue(userObject) { error, ref in
-            completion(error == nil)
-        }
-    }
+
 }
 

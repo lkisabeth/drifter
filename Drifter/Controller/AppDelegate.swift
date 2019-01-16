@@ -15,7 +15,7 @@ let secondaryButtonColor = UIColor(red: 73/255, green: 26/255, blue: 136/255, al
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window : UIWindow?
+    var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         

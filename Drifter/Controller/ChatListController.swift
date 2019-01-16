@@ -10,6 +10,7 @@ import UIKit
 import BFTransmitter
 import Firebase
 import ChameleonFramework
+import TransitionButton
 
 let onlineSection = 0
 var peersFile = "peersfile"
@@ -87,7 +88,6 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Just cell appereance configuration
         let cell = tableView.dequeueReusableCell(withIdentifier: "peerCell", for: indexPath)
         let peerIdLabel = cell.contentView.viewWithTag(1000) as! UILabel
         let onlineStatusLabel = cell.contentView.viewWithTag(1001) as! UILabel
