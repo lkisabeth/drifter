@@ -14,6 +14,7 @@ target 'Drifter' do
   pod 'BFTransmitter'
   pod 'TransitionButton'
   pod 'VegaScrollFlowLayout'
+  pod 'MessageKit'
 
   target 'DrifterTests' do
     inherit! :search_paths

@@ -6,21 +6,20 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import Firebase
 import TransitionButton
+import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
-    
     @IBOutlet var emailTextfield: UITextField!
     @IBOutlet var passwordTextfield: UITextField!
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet var backButton: UIButton!
     
     let logInButton = TransitionButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewDidLoad() {
@@ -61,15 +60,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    @objc func keyboardWillAppear(notification: NSNotification){
+    @objc func keyboardWillAppear(notification: NSNotification) {
         let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         logInButton.center = CGPoint(x: view.center.x,
-                                        y: view.frame.height - keyboardFrame.height - 30.0 - logInButton.frame.height / 2)
+                                     y: view.frame.height - keyboardFrame.height - 30.0 - logInButton.frame.height / 2)
     }
     
-    @objc func textFieldChanged(_ target:UITextField) {
+    @objc func textFieldChanged(_ target: UITextField) {
         let email = emailTextfield.text
         let password = passwordTextfield.text
         let formFilled = email != nil && email != "" && password != nil && password != ""
@@ -92,10 +91,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-    func setLogInButton(enabled:Bool) {
+    func setLogInButton(enabled: Bool) {
         if enabled {
             logInButton.alpha = 1.0
             logInButton.isEnabled = true
@@ -108,7 +107,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func handleSignIn() {
         guard let email = emailTextfield.text else { return }
         guard let pass = passwordTextfield.text else { return }
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         
         logInButton.startAnimation()
         
@@ -117,18 +116,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         backgroundQueue.async {
             Auth.auth().signIn(withEmail: email, password: pass) { user, error in
-                if error == nil && user != nil {
-                    self.logInButton.stopAnimation(animationStyle: .expand, completion: {
+                if error == nil, user != nil {
+                    self.logInButton.stopAnimation(animationStyle: .expand) {
                         if let storyboard = self.storyboard {
                             let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
                             self.present(vc, animated: true, completion: nil)
                         }
-                    })
+                    }
                 } else {
-                    self.logInButton.stopAnimation(animationStyle: .shake, completion: {
+                    self.logInButton.stopAnimation(animationStyle: .shake) {
                         print("Error logging in: \(error!.localizedDescription)")
                         self.resetForm()
-                    })
+                    }
                 }
             }
         }
@@ -137,9 +136,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     func resetForm() {
         let alert = UIAlertController(title: "Error Logging In", message: "Please try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
         
         setLogInButton(enabled: true)
     }
-
 }

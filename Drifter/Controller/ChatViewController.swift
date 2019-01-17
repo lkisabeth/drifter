@@ -6,9 +6,9 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
-import Firebase
 import ChameleonFramework
+import Firebase
+import UIKit
 
 let broadcastConversation: String = "broadcast"
 
@@ -17,8 +17,7 @@ public protocol ChatViewControllerDelegate: NSObjectProtocol {
 }
 
 open class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    weak open var chatDelegate: ChatViewControllerDelegate?
+    open weak var chatDelegate: ChatViewControllerDelegate?
     var userUUID: String = ""
     var deviceName: String = ""
     var deviceType: DeviceType = .undefined
@@ -26,13 +25,12 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     var broadcastType: Bool = false
     var messages: NSMutableArray = []
     
-    //UI objects
-    @IBOutlet weak var onlineLabel: UILabel!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var typeView: UIView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var keyboardConstraint: NSLayoutConstraint!
-    
+    // UI objects
+    @IBOutlet var onlineLabel: UILabel!
+    @IBOutlet var textField: UITextField!
+    @IBOutlet var typeView: UIView!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var keyboardConstraint: NSLayoutConstraint!
     
     func addMessage(_ message: Message) {
         self.messages.insert(message, at: 0)
@@ -56,7 +54,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         if self.broadcastType {
             self.chatDelegate?.sendMessage(message, toConversation: broadcastConversation)
         } else {
-            //If conversation is not broadcast send a direct message to the UUID
+            // If conversation is not broadcast send a direct message to the UUID
             self.chatDelegate?.sendMessage(message, toConversation: self.userUUID)
         }
         self.textField.text = ""
@@ -64,7 +62,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         self.addRowToTable()
     }
     
-    override open func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         self.setOnlineStatus()
         if self.broadcastType {
@@ -76,7 +74,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override open func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
@@ -97,7 +95,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     func addRowToTable() {
         self.tableView.beginUpdates()
-        let index = IndexPath(row:0, section: 0)
+        let index = IndexPath(row: 0, section: 0)
         self.tableView.insertRows(at: [index], with: UITableView.RowAnimation.bottom)
         self.tableView.endUpdates()
     }
@@ -124,17 +122,17 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
             
             switch message.deviceType {
             case .undefined:
-                deviceTypeImageView.image = nil;
+                deviceTypeImageView.image = nil
             case .android:
-                deviceTypeImageView.image = UIImage.init(named: "android")
+                deviceTypeImageView.image = UIImage(named: "android")
             case .ios:
-                deviceTypeImageView.image = UIImage.init(named: "ios")
+                deviceTypeImageView.image = UIImage(named: "ios")
             }
         } else {
             userLabel.textColor = UIColor.blue
             userLabel.text = "You:"
             transmissionLabel.text = ""
-            deviceTypeImageView.image = nil;
+            deviceTypeImageView.image = nil
         }
         messageLabel.text = message.messageBody
         let dateFormatter = DateFormatter()
@@ -157,14 +155,15 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         
         let keyboardFrameBegin = keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey]
         let frame: CGRect = (keyboardFrameBegin! as AnyObject).cgRectValue
-        var padding: CGFloat = 0.0;
+        var padding: CGFloat = 0.0
         if #available(iOS 11, *) {
-            padding = self.view.safeAreaInsets.bottom;
+            padding = self.view.safeAreaInsets.bottom
         }
         
-        guard let duration = keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else {return}
+        guard let duration = keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let curve = keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
         self.keyboardConstraint.constant = frame.size.height - padding
+        
         UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(truncating: curve)), animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -173,12 +172,12 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     @objc func keyboardWillHide(_ notification: Notification) {
         var keyboardInfo = notification.userInfo!
         
-        guard let duration = keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else {return}
+        guard let duration = keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let curve = keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
         self.keyboardConstraint.constant = 0
+        
         UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(truncating: curve)), animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
-
 }

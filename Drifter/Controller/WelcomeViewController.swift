@@ -6,18 +6,17 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
-import Firebase
 import ChameleonFramework
+import Firebase
+import UIKit
 
 class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
-    
-    @IBOutlet weak var logInButton: UIButton!
-    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet var logInButton: UIButton!
+    @IBOutlet var signUpButton: UIButton!
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
     override func viewDidLoad() {
@@ -28,7 +27,7 @@ class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
         // Translucent white nav bar with purple font
         let navBar = navigationController?.navigationBar
         navBar?.barTintColor = UIColor.white
-        navBar?.titleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.flatPurpleColorDark() ]
+        navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.flatPurpleColorDark()]
         navBar?.tintColor = UIColor.flatPurpleColorDark()
         navBar?.isTranslucent = true
         navBar?.setValue(true, forKey: "hidesShadow")
@@ -38,17 +37,17 @@ class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
         super.viewDidLayoutSubviews()
         
         logInButton.layer.masksToBounds = true
-        logInButton.roundCorners(corners: [.topLeft,.bottomLeft], radius: 35)
+        logInButton.roundCorners(corners: [.topLeft, .bottomLeft], radius: 35)
         
         signUpButton.layer.masksToBounds = true
-        signUpButton.roundCorners(corners: [.topRight,.bottomRight], radius: 35)
+        signUpButton.roundCorners(corners: [.topRight, .bottomRight], radius: 35)
     }
     
-    @IBAction func unwindToHome(_ sender: UIStoryboardSegue){}
+    @IBAction func unwindToHome(_ sender: UIStoryboardSegue) {}
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -62,15 +61,12 @@ class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }
 
-extension UIButton
-{
-    func roundCorners(corners:UIRectCorner, radius: CGFloat)
-    {
+extension UIButton {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let maskLayer = CAShapeLayer()
-        maskLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius)).cgPath
-        self.layer.mask = maskLayer
+        maskLayer.path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        layer.mask = maskLayer
     }
 }

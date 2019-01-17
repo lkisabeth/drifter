@@ -9,8 +9,7 @@
 import UIKit
 
 class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
-    
-    private static let expandDur: CFTimeInterval = 0.3  // Change to make transition faster/slower
+    private static let expandDur: CFTimeInterval = 0.3 // Change to make transition faster/slower
     private static let contractDur: CFTimeInterval = 0.3 // Change to make transition faster/slower
     private static let stack = Stack()
     private static var isAnimating = false
@@ -19,12 +18,11 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
     private var shouldUnwind: Bool
     
     override init(identifier: String?, source: UIViewController, destination: UIViewController) {
-        
         // By default, transition starts from the center of the screen,
         // so let's find the center when segue is first initialized
-        let centerX = UIScreen.main.bounds.width*0.5
-        let centerY = UIScreen.main.bounds.height*0.5
-        let centerOfScreen = CGPoint(x:centerX, y:centerY)
+        let centerX = UIScreen.main.bounds.width * 0.5
+        let centerY = UIScreen.main.bounds.height * 0.5
+        let centerOfScreen = CGPoint(x: centerX, y: centerY)
         
         // Initialize properties
         circleOrigin = centerOfScreen
@@ -34,7 +32,6 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
     }
     
     override func perform() {
-        
         if CircleSegue.isAnimating {
             return
         }
@@ -55,7 +52,7 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
         if !shouldUnwind {
             window?.insertSubview(destView, aboveSubview: sourceView)
         } else {
-            window?.insertSubview(destView, at:0)
+            window?.insertSubview(destView, at: 0)
         }
         
         let paths = startAndEndPaths(shouldUnwind: !shouldUnwind)
@@ -77,7 +74,7 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
         CircleSegue.isAnimating = true
     }
     
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool)  {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         CircleSegue.isAnimating = false
         if !shouldUnwind {
             source.present(destination, animated: false, completion: nil)
@@ -89,7 +86,6 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
     // MARK: Helper methods
     
     private func scalingAnimation(destinationPath: CGPath) -> CABasicAnimation {
-        
         let animation = CABasicAnimation(keyPath: "path")
         animation.toValue = destinationPath
         animation.isRemovedOnCompletion = false
@@ -101,21 +97,20 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
     }
     
     private func startAndEndPaths(shouldUnwind: Bool) -> (start: CGPath, end: CGPath) {
-        
         // The hypothenuse is the diagonal of the screen. Further, we use this diagonal as
         // the diameter of the big circle. This way we are always certain that the big circle
         // will cover the whole screen.
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height
-        let rw = width + abs(width/2 - circleOrigin.x)
-        let rh = height + abs(height/2 - circleOrigin.y)
-        let h1 = hypot(width/2 - circleOrigin.x, height/2 - circleOrigin.y)
+        let rw = width + abs(width / 2 - circleOrigin.x)
+        let rh = height + abs(height / 2 - circleOrigin.y)
+        let h1 = hypot(width / 2 - circleOrigin.x, height / 2 - circleOrigin.y)
         let hyp = CGFloat(sqrtf(powf(Float(rw), 2) + powf(Float(rh), 2)))
         let dia = h1 + hyp
         
         // The two circle sizes we will animate to/from
         let path1 = UIBezierPath(ovalIn: CGRect.zero).cgPath
-        let path2 = UIBezierPath(ovalIn: CGRect(x:-dia/2, y:-dia/2, width:dia, height:dia)).cgPath
+        let path2 = UIBezierPath(ovalIn: CGRect(x: -dia / 2, y: -dia / 2, width: dia, height: dia)).cgPath
         
         // If shouldUnwind flag is true, we should go from big to small circle, or else go from small to big
         return shouldUnwind ? (path1, path2) : (path2, path1)
@@ -125,12 +120,9 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
     
     // Simple stack implementation for keeping track of our view controllers
     private class Stack {
-        
         private var stackArray = Array<UIViewController>()
         private var size: Int {
-            get {
-                return stackArray.count
-            }
+            return stackArray.count
         }
         
         func push(vc: UIViewController) {

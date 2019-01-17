@@ -6,21 +6,16 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import Firebase
-
-let primaryButtonColor = UIColor(red: 147/255, green: 55/255, blue: 218/255, alpha: 1)
-let secondaryButtonColor = UIColor(red: 73/255, green: 26/255, blue: 136/255, alpha: 1)
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         FirebaseApp.configure()
-
+        
         return true
     }
     
@@ -45,6 +40,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
+}
+
+let primaryButtonColor = UIColor(red: 147 / 255, green: 55 / 255, blue: 218 / 255, alpha: 1)
+let secondaryButtonColor = UIColor(red: 73 / 255, green: 26 / 255, blue: 136 / 255, alpha: 1)
+
+// ensure buttons have a minimum hit area (to improve UX on small buttons)
+fileprivate let minimumHitArea = CGSize(width: 50, height: 50)
+
+extension UIButton {
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        // if the button is hidden/disabled/transparent it can't be hit
+        if self.isHidden || !self.isUserInteractionEnabled || self.alpha < 0.01 { return nil }
+        
+        // increase the hit frame to be at least as big as `minimumHitArea`
+        let buttonSize = self.bounds.size
+        let widthToAdd = max(minimumHitArea.width - buttonSize.width, 0)
+        let heightToAdd = max(minimumHitArea.height - buttonSize.height, 0)
+        let largerFrame = self.bounds.insetBy(dx: -widthToAdd / 2, dy: -heightToAdd / 2)
+        
+        // perform hit test on larger frame
+        return (largerFrame.contains(point)) ? self : nil
+    }
 }

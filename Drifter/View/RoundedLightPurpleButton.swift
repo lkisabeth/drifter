@@ -10,17 +10,15 @@ import Foundation
 import UIKit
 
 class RoundedLightPurpleButton: UIButton {
-    
-    var highlightedColor = primaryButtonColor
-    {
+    var highlightedColor = primaryButtonColor {
         didSet {
-            if isHighlighted {
-                backgroundColor = highlightedColor
+            if self.isHighlighted {
+                backgroundColor = self.highlightedColor
             }
         }
     }
-    var defaultColor = primaryButtonColor
-    {
+    
+    var defaultColor = primaryButtonColor {
         didSet {
             if !isHighlighted {
                 backgroundColor = defaultColor
@@ -39,20 +37,18 @@ class RoundedLightPurpleButton: UIButton {
         }
     }
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        self.setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setup()
+        self.setup()
     }
     
     func setup() {

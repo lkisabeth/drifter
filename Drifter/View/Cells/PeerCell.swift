@@ -9,11 +9,10 @@
 import UIKit
 
 class PeerCell: UICollectionViewCell {
+    @IBOutlet private var peerIdLabel: UILabel!
+    @IBOutlet private var onlineStatusLabel: UILabel!
     
-    @IBOutlet private weak var peerIdLabel: UILabel!
-    @IBOutlet private weak var onlineStatusLabel: UILabel!
-    
-    @IBOutlet weak var deviceTypeImageView: UIImageView!
+    @IBOutlet var deviceTypeImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,14 +46,9 @@ class PeerCell: UICollectionViewCell {
         case .undefined:
             deviceTypeImageView.image = nil
         case .android:
-            deviceTypeImageView.image = UIImage.init(named: "android")
+            deviceTypeImageView.image = UIImage(named: "android")
         case .ios:
-            deviceTypeImageView.image = UIImage.init(named: "ios")
+            deviceTypeImageView.image = UIImage(named: "ios")
         }
     }
-    
 }
-
-
-
-

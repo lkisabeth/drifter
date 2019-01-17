@@ -6,29 +6,28 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import Firebase
 import TransitionButton
+import UIKit
 
-class SignUpViewController:UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var backButton: UIButton!
+class SignUpViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet var usernameField: UITextField!
+    @IBOutlet var emailField: UITextField!
+    @IBOutlet var passwordField: UITextField!
+    @IBOutlet var backButton: UIButton!
     
     var signUpButton = TransitionButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
-
+        
         signUpButton.backgroundColor = secondaryButtonColor
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.setTitle("Sign Up", for: .normal)
@@ -67,12 +66,12 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
      - Parameter notification: Contains the keyboardFrame info.
      */
     
-    @objc func keyboardWillAppear(notification: NSNotification){
+    @objc func keyboardWillAppear(notification: NSNotification) {
         let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         signUpButton.center = CGPoint(x: view.center.x,
-                                        y: view.frame.height - keyboardFrame.height - 30.0 - signUpButton.frame.height / 2)
+                                      y: view.frame.height - keyboardFrame.height - 30.0 - signUpButton.frame.height / 2)
     }
     
     /**
@@ -81,7 +80,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
      - Parameter target: The targeted **UITextField**.
      */
     
-    @objc func textFieldChanged(_ target:UITextField) {
+    @objc func textFieldChanged(_ target: UITextField) {
         let username = usernameField.text
         let email = emailField.text
         let password = passwordField.text
@@ -109,10 +108,10 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
     }
     
     @objc func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-    func setsignUpButton(enabled:Bool) {
+    func setsignUpButton(enabled: Bool) {
         if enabled {
             signUpButton.alpha = 1.0
             signUpButton.isEnabled = true
@@ -126,7 +125,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         guard let username = usernameField.text else { return }
         guard let email = emailField.text else { return }
         guard let pass = passwordField.text else { return }
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         
         signUpButton.startAnimation()
         
@@ -134,7 +133,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         
         backgroundQueue.async {
-            Auth.auth().createUser(withEmail: email, password: pass) { user, error in
+            Auth.auth().createUser(withEmail: email, password: pass) { _, error in
                 if error != nil {
                     self.signUpButton.stopAnimation(animationStyle: .shake) {
                         print(error!)
@@ -160,14 +159,12 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    
     func resetForm() {
         let alert = UIAlertController(title: "Error signing up", message: "Please try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
         
         setsignUpButton(enabled: true)
     }
-
 }
-

@@ -12,17 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PeerCell" id="gTV-IL-0wX" customClass="PeerCell" customModule="Drifter" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+            <rect key="frame" x="0.0" y="0.0" width="338" height="128"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+                <rect key="frame" x="0.0" y="0.0" width="338" height="128"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fK5-6h-1tU">
-                        <rect key="frame" x="0.0" y="0.0" width="387" height="146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="338" height="128"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRl-f9-Xdb">
-                                <rect key="frame" x="249" y="0.0" width="138" height="146"/>
+                                <rect key="frame" x="200" y="0.0" width="138" height="128"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios" translatesAutoresizingMaskIntoConstraints="NO" id="F73-HK-Ou3" userLabel="Device Type Image View">
                                         <rect key="frame" x="41" y="35" width="56" height="68"/>
@@ -40,13 +40,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Peer ID" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWE-mQ-Ebu" userLabel="Peer ID Label">
-                                <rect key="frame" x="0.0" y="28" width="249" height="45"/>
+                                <rect key="frame" x="0.0" y="28" width="200" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZM-HM-ack" userLabel="Online Status Label">
-                                <rect key="frame" x="0.0" y="73" width="249" height="42"/>
+                                <rect key="frame" x="0.0" y="64" width="200" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.31557071208953857" green="0.35190755128860474" blue="0.39888250827789307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -78,13 +78,13 @@
                 <constraint firstItem="fK5-6h-1tU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Tfu-aV-0SJ"/>
                 <constraint firstAttribute="trailing" secondItem="fK5-6h-1tU" secondAttribute="trailing" id="Vu8-kr-vwO"/>
             </constraints>
-            <size key="customSize" width="387" height="146"/>
+            <size key="customSize" width="338" height="128"/>
             <connections>
                 <outlet property="deviceTypeImageView" destination="F73-HK-Ou3" id="DaO-wP-8dS"/>
                 <outlet property="onlineStatusLabel" destination="iZM-HM-ack" id="7Qm-dc-FvT"/>
                 <outlet property="peerIdLabel" destination="SWE-mQ-Ebu" id="Ji8-os-Qpj"/>
             </connections>
-            <point key="canvasLocation" x="231.19999999999999" y="-138.53073463268368"/>
+            <point key="canvasLocation" x="270.39999999999998" y="-146.62668665667167"/>
         </collectionViewCell>
     </objects>
     <resources>

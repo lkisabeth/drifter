@@ -6,8 +6,8 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
 
 enum DeviceType: Int {
     case undefined = 0
@@ -16,7 +16,6 @@ enum DeviceType: Int {
 }
 
 open class Message: NSObject, NSSecureCoding {
-    
     public static var supportsSecureCoding: Bool = true
     
     var sender: String
@@ -39,8 +38,7 @@ open class Message: NSObject, NSSecureCoding {
         ]
     }
     
-    override required public init()
-    {
+    public required override init() {
         self.sender = ""
         self.messageBody = ""
         self.received = false
@@ -52,14 +50,14 @@ open class Message: NSObject, NSSecureCoding {
         super.init()
     }
     
-    required public init(coder decoder: NSCoder) {
-        self.sender =  decoder.decodeObject(forKey: "sender") as! String
+    public required init(coder decoder: NSCoder) {
+        self.sender = decoder.decodeObject(forKey: "sender") as! String
         self.messageBody = decoder.decodeObject(forKey: "messageBody") as! String
-        self.received = Bool(decoder.decodeBool(forKey: "received") )
+        self.received = Bool(decoder.decodeBool(forKey: "received"))
         self.date = decoder.decodeObject(forKey: "date") as! Date
-        self.mesh = Bool(decoder.decodeBool(forKey: "mesh") )
-        self.broadcast = Bool(decoder.decodeBool(forKey: "broadcast") )
-        self.deviceType = DeviceType(rawValue: Int(decoder.decodeInteger(forKey: "device_type") ))!
+        self.mesh = Bool(decoder.decodeBool(forKey: "mesh"))
+        self.broadcast = Bool(decoder.decodeBool(forKey: "broadcast"))
+        self.deviceType = DeviceType(rawValue: Int(decoder.decodeInteger(forKey: "device_type")))!
     }
     
     open func encode(with encoder: NSCoder) {
@@ -71,5 +69,4 @@ open class Message: NSObject, NSSecureCoding {
         encoder.encode(self.broadcast, forKey: "broadcast")
         encoder.encode(self.deviceType.rawValue, forKey: "device_type")
     }
-    
 }
