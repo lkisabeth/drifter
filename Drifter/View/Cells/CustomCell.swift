@@ -6,11 +6,10 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import MessageKit
+import UIKit
 
 open class CustomCell: UICollectionViewCell {
-    
     let label = UILabel()
     
     public override init(frame: CGRect) {
@@ -44,5 +43,4 @@ open class CustomCell: UICollectionViewCell {
             break
         }
     }
-    
 }

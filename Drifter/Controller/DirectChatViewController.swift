@@ -22,11 +22,13 @@ open class DirectChatViewController: BaseChatViewController {
     let currentUser = Auth.auth().currentUser!
     var userUUID: String = ""
     
-    let outgoingAvatarOverlap: CGFloat = 17.5
-    
     open override func viewDidLoad() {
         messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
         messagesCollectionView.register(CustomCell.self)
+        if let layout = messagesCollectionView.collectionViewLayout as? CustomMessagesFlowLayout {
+            layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+            layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+        }
         super.viewDidLoad()
         
         messagesCollectionView.scrollToBottom(animated: true)
@@ -38,16 +40,6 @@ open class DirectChatViewController: BaseChatViewController {
         
         let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
         layout?.sectionInset = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
-        
-        // Hide the outgoing avatar and adjust the label alignment to line up with the messages
-        layout?.setMessageOutgoingAvatarSize(.zero)
-        layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
-        layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
-        
-        // Set outgoing avatar to overlap with the message bubble
-        layout?.setMessageIncomingMessageTopLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 18, bottom: outgoingAvatarOverlap, right: 0)))
-        layout?.setMessageIncomingAvatarSize(CGSize(width: 30, height: 30))
-        layout?.setMessageIncomingMessagePadding(UIEdgeInsets(top: -outgoingAvatarOverlap, left: -18, bottom: outgoingAvatarOverlap, right: 18))
         
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -170,14 +162,14 @@ open class DirectChatViewController: BaseChatViewController {
     
     // MARK: - MessagesDataSource
     
-    override public func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    public override func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if isTimeLabelVisible(at: indexPath) {
             return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         }
         return nil
     }
     
-    override public func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    public override func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if !isPreviousMessageSameSender(at: indexPath) {
             let name = message.sender.displayName
             return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
@@ -185,7 +177,7 @@ open class DirectChatViewController: BaseChatViewController {
         return nil
     }
     
-    override public func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    public override func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if !isNextMessageSameSender(at: indexPath), isFromCurrentSender(message: message) {
             return NSAttributedString(string: "Delivered", attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
         }
@@ -249,10 +241,10 @@ extension DirectChatViewController: MessagesDisplayDelegate {
     }
     
     public func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-         // avatarView.set(avatar: avatar)
-         avatarView.isHidden = isNextMessageSameSender(at: indexPath)
-         avatarView.layer.borderWidth = 2
-         avatarView.layer.borderColor = UIColor.primaryColor.cgColor
+        // avatarView.set(avatar: avatar)
+        avatarView.isHidden = true
+        // avatarView.layer.borderWidth = 2
+        // avatarView.layer.borderColor = UIColor.primaryColor.cgColor
     }
     
     // MARK: - Location Messages
@@ -290,11 +282,7 @@ extension DirectChatViewController: MessagesLayoutDelegate {
     }
     
     public func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        if isFromCurrentSender(message: message) {
-            return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
-        } else {
-            return !isPreviousMessageSameSender(at: indexPath) ? (20 + outgoingAvatarOverlap) : 0
-        }
+        return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
     }
     
     public func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
@@ -312,13 +300,13 @@ extension DirectChatViewController: MessageInputBarDelegate {
                 message.kind = .text(str)
                 message.sender = currentSender()
                 insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: self.userUUID)
+                chatDelegate?.sendMessage(message, toConversation: userUUID)
             } else if let emoji = component as? String {
                 let message = Message(messageId: UUID().uuidString, messageBody: emoji, sentDate: Date())
                 message.kind = .emoji(emoji)
                 message.sender = currentSender()
                 insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: self.userUUID)
+                chatDelegate?.sendMessage(message, toConversation: userUUID)
             }
         }
         inputBar.inputTextView.text = String()

@@ -28,9 +28,7 @@
 		07C822E021E6F547001A2832 /* DrifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822DF21E6F547001A2832 /* DrifterTests.swift */; };
 		07C822EB21E6F547001A2832 /* DrifterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822EA21E6F547001A2832 /* DrifterUITests.swift */; };
 		07C822FE21E6F81F001A2832 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822FD21E6F81F001A2832 /* CustomCell.swift */; };
-		07C8230021E6F87D001A2832 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07C822FF21E6F87D001A2832 /* MessageCell.xib */; };
 		07C8230221E6F8D7001A2832 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230121E6F8D7001A2832 /* Message.swift */; };
-		07C8230421E6F93E001A2832 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230321E6F93E001A2832 /* ChatViewController.swift */; };
 		07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230521E6F967001A2832 /* LoginViewController.swift */; };
 		07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230721E6F97D001A2832 /* RegisterViewController.swift */; };
 		07C8230C21E6F9B8001A2832 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */; };
@@ -91,9 +89,7 @@
 		07C822EA21E6F547001A2832 /* DrifterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrifterUITests.swift; sourceTree = "<group>"; };
 		07C822EC21E6F547001A2832 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07C822FD21E6F81F001A2832 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		07C822FF21E6F87D001A2832 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		07C8230121E6F8D7001A2832 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		07C8230321E6F93E001A2832 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		07C8230521E6F967001A2832 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		07C8230721E6F97D001A2832 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -264,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				07C822C821E6F546001A2832 /* AppDelegate.swift */,
-				07C8230321E6F93E001A2832 /* ChatViewController.swift */,
 				07C8230521E6F967001A2832 /* LoginViewController.swift */,
 				07C8230721E6F97D001A2832 /* RegisterViewController.swift */,
 				07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */,
@@ -280,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				07C822FD21E6F81F001A2832 /* CustomCell.swift */,
-				07C822FF21E6F87D001A2832 /* MessageCell.xib */,
 				076ED87F21EFB51500F13CCE /* PeerCell.swift */,
 				076ED88021EFB51500F13CCE /* PeerCell.xib */,
 			);
@@ -469,7 +463,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07C8230021E6F87D001A2832 /* MessageCell.xib in Resources */,
 				07DF102821E6FE3100E0E518 /* GoogleService-Info.plist in Resources */,
 				07C822D221E6F547001A2832 /* Assets.xcassets in Resources */,
 				07E9F2E721EA63340040DC4F /* LaunchScreen.storyboard in Resources */,
@@ -684,7 +677,6 @@
 				07C8230221E6F8D7001A2832 /* Message.swift in Sources */,
 				07909E5821F1396A00587DB6 /* BaseChatViewController.swift in Sources */,
 				07909E5421F0F47800587DB6 /* CustomMessageFlowLayout.swift in Sources */,
-				07C8230421E6F93E001A2832 /* ChatViewController.swift in Sources */,
 				07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */,
 				07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */,
 				07C822FE21E6F81F001A2832 /* CustomCell.swift in Sources */,

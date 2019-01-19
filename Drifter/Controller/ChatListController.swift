@@ -9,10 +9,10 @@
 import BFTransmitter
 import ChameleonFramework
 import Firebase
+import MessageKit
 import TransitionButton
 import UIKit
 import VegaScrollFlowLayout
-import MessageKit
 
 private let itemHeight: CGFloat = 84
 private let lineSpacing: CGFloat = 20
@@ -161,14 +161,13 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         
         do {
             try self.transmitter.send(dictionary, toUser: receiverUUID, options: options)
-        }
-        catch let err as NSError {
+        } catch let err as NSError {
             print("Error: \(err)")
         }
         
         message.senderId = currentUser.uid
         message.displayName = currentUser.displayName!
-        //Just persistence management
+        // Just persistence management
         self.saveMessage(message, forConversation: uuid)
     }
     
@@ -284,7 +283,6 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     }
     
     func processReceivedMessage(_ dictionary: Dictionary<String, Any>, fromUser user: String, byMesh mesh: Bool, asBroadcast broadcast: Bool) {
-        
         // Processing a new message
         let text: String = dictionary[messageTextKey] as! String
         let messageId: String = dictionary[messageIdKey] as! String
@@ -297,7 +295,7 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         message.kind = .text(text)
         message.received = true
         message.mesh = mesh
-        message.broadcast = broadcast// If YES received message is broadcast.
+        message.broadcast = broadcast // If YES received message is broadcast.
         
         let conversation: String = user
         self.saveMessage(message, forConversation: conversation)
@@ -309,7 +307,6 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
             // update messages.
             self.chatController!.insertMessage(message)
         }
-        
     }
     
     func processReceivedPeerInfo(_ peerInfo: Dictionary<String, Any>, fromUser user: String) {

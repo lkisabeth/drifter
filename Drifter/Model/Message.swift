@@ -7,8 +7,8 @@
 //
 
 import Firebase
-import UIKit
 import MessageKit
+import UIKit
 
 public enum DeviceType: Int {
     case undefined = 0
@@ -17,13 +17,12 @@ public enum DeviceType: Int {
 }
 
 open class Message: NSObject, NSSecureCoding, MessageType {
-    
     public static var supportsSecureCoding: Bool = true
     
     // these two are required by the MessageKit SDK being used for chat (but I don't want to encode them)
     public var sender: Sender = Sender(id: "", displayName: "")
     public var kind: MessageKind = .text("")
-
+    
     public var senderId: String
     public var displayName: String
     public var messageId: String
@@ -73,7 +72,7 @@ open class Message: NSObject, NSSecureCoding, MessageType {
         self.broadcast = false
         self.deviceType = .ios
     }
-
+    
     public required init(coder decoder: NSCoder) {
         self.senderId = decoder.decodeObject(forKey: "senderId") as! String
         self.displayName = decoder.decodeObject(forKey: "displayName") as! String

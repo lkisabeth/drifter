@@ -6,19 +6,18 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import UIKit
 import BFTransmitter
 import Firebase
-import MessageKit
 import MessageInputBar
+import MessageKit
+import UIKit
 
 /// A base class for the example controllers
 open class BaseChatViewController: MessagesViewController, MessagesDataSource {
-    
-    override open var preferredStatusBarStyle: UIStatusBarStyle {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     var messages: [Message] = []
     
     let formatter: DateFormatter = {
@@ -27,7 +26,7 @@ open class BaseChatViewController: MessagesViewController, MessagesDataSource {
         return formatter
     }()
     
-    override open func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         configureMessageCollectionView()
@@ -103,17 +102,14 @@ open class BaseChatViewController: MessagesViewController, MessagesDataSource {
     }
     
     public func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
         let dateString = formatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
-    
 }
 
 // MARK: - MessageCellDelegate
 
 extension BaseChatViewController: MessageCellDelegate {
-    
     public func didTapAvatar(in cell: MessageCollectionViewCell) {
         print("Avatar tapped")
     }
@@ -137,7 +133,6 @@ extension BaseChatViewController: MessageCellDelegate {
     public func didTapAccessoryView(in cell: MessageCollectionViewCell) {
         print("Accessory view tapped")
     }
-    
 }
 
 // MARK: - MessageLabelDelegate
