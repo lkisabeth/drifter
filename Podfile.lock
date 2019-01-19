@@ -169,6 +169,8 @@ PODS:
   - gRPC-Core/Interface (1.14.0)
   - GTMSessionFetcher/Core (1.2.1)
   - leveldb-library (1.20)
+  - MessageInputBar (0.4.1):
+    - MessageInputBar/Core (= 0.4.1)
   - MessageInputBar/Core (0.4.1)
   - MessageKit (2.0.0):
     - MessageInputBar/Core
@@ -194,6 +196,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase
   - FirebaseUI
+  - MessageInputBar (from `https://github.com/MessageKit/MessageInputBar.git`, branch `master`)
   - MessageKit
   - SVProgressHUD
   - TransitionButton
@@ -226,7 +229,6 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
-    - MessageInputBar
     - MessageKit
     - nanopb
     - Protobuf
@@ -236,6 +238,16 @@ SPEC REPOS:
     - TwitterCore
     - TwitterKit
     - VegaScrollFlowLayout
+
+EXTERNAL SOURCES:
+  MessageInputBar:
+    :branch: master
+    :git: https://github.com/MessageKit/MessageInputBar.git
+
+CHECKOUT OPTIONS:
+  MessageInputBar:
+    :commit: 117332dba2681cececc9ccacc0b759c161b9798e
+    :git: https://github.com/MessageKit/MessageInputBar.git
 
 SPEC CHECKSUMS:
   BFTransmitter: e1c9c1f504dfb138502a9a8a9f17c1ebf85a8c15
@@ -274,6 +286,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   VegaScrollFlowLayout: 9158061f29179147755f937c2b21693fc5dbbac3
 
-PODFILE CHECKSUM: fc95f6eb87e46a2e99d32b3985c2aaad31d34a39
+PODFILE CHECKSUM: 976a833449b61e0b4116311533e6f4b14c529971
 
 COCOAPODS: 1.5.3

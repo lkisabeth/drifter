@@ -25,7 +25,7 @@
 import Foundation
 
 /// An object that groups the metadata of a messages sender.
-public struct Sender {
+public struct Sender: Codable {
 
     /// MARK: - Properties
 

@@ -5,7 +5,7 @@
 //  Created by Lucas Kisabeth on 1/9/19.
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
-
+/*
 import ChameleonFramework
 import Firebase
 import UIKit
@@ -47,8 +47,8 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         let message: Message = Message()
-        message.messageBody = self.textField!.text!
-        message.date = Date()
+        message.kind = .text(self.textField!.text!)
+        message.sentDate = Date()
         message.received = false
         message.broadcast = self.broadcastType
         if self.broadcastType {
@@ -116,7 +116,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         let message: Message = self.messages.object(at: indexPath.item) as! Message
         if message.received {
             userLabel.textColor = UIColor.red
-            userLabel.text = message.sender
+            userLabel.text = message.sender.displayName
             transmissionLabel.textColor = message.mesh ? UIColor.blue : UIColor.red
             transmissionLabel.text = message.mesh ? "MESH" : "DIRECT"
             
@@ -134,10 +134,10 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
             transmissionLabel.text = ""
             deviceTypeImageView.image = nil
         }
-        messageLabel.text = message.messageBody
+        messageLabel.text = String(message.kind)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        dateLabel.text = dateFormatter.string(from: message.date as Date)
+        dateLabel.text = dateFormatter.string(from: message.sentDate as Date)
         return cell
     }
     
@@ -180,4 +180,4 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
             self.view.layoutIfNeeded()
         })
     }
-}
+} */

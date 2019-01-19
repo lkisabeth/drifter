@@ -184,6 +184,24 @@
             </objects>
             <point key="canvasLocation" x="4139" y="9"/>
         </scene>
+        <!--Direct Chat View Controller-->
+        <scene sceneID="SG1-sD-1y5">
+            <objects>
+                <viewController storyboardIdentifier="DirectChatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UkX-7m-YNb" customClass="DirectChatViewController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yoY-fY-POj"/>
+                        <viewControllerLayoutGuide type="bottom" id="f7B-j9-62v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fA3-Ya-CTy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gry-1A-PPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4940" y="388"/>
+        </scene>
         <!--Item-->
         <scene sceneID="9wU-V9-GaZ">
             <objects>
@@ -659,7 +677,7 @@
         <!--Item-->
         <scene sceneID="bxX-yb-4sf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="JDp-Lp-7PN" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="JDp-Lp-7PN" customClass="NavigationController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="vgV-ol-K6J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q8J-bc-ee4">

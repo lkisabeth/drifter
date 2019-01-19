@@ -12,24 +12,29 @@ import Firebase
 import TransitionButton
 import UIKit
 import VegaScrollFlowLayout
-
-var peersFile = "peersfile"
-var messageTextKey = "messageBody"
-var peerNameKey = "device_name"
-var peerTypeKey = "device_type"
+import MessageKit
 
 private let itemHeight: CGFloat = 84
 private let lineSpacing: CGFloat = 20
 private let topInset: CGFloat = 10
 
-open class ChatListController: UICollectionViewController, BFTransmitterDelegate, ChatViewControllerDelegate {
+private var peersFile: String = "peersFile"
+private var messageTextKey: String = "message_text"
+private var peerNameKey: String = "peer_name"
+private var peerIdKey: String = "peer_id"
+private var peerTypeKey: String = "peer_type"
+private var messageIdKey: String = "message_id"
+
+open class ChatListController: UICollectionViewController, BFTransmitterDelegate, DirectChatViewControllerDelegate {
     fileprivate var openUUID: String = ""
     fileprivate var openStateOnline: Bool = true
     fileprivate var transmitter: BFTransmitter
     fileprivate var peerNamesDictionary: NSMutableDictionary
     fileprivate var onlinePeers: NSMutableArray
-    fileprivate weak var chatController: ChatViewController?
+    fileprivate weak var chatController: DirectChatViewController?
     fileprivate let cellId = "PeerCell"
+    
+    var currentUser = Auth.auth().currentUser!
     
     public required init?(coder aDecoder: NSCoder) {
         // Transmitter initialization
@@ -45,6 +50,9 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
         
         self.collectionView.setNeedsLayout()
         self.collectionView.layoutIfNeeded()
@@ -52,6 +60,9 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Nearby Peers"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatListController.savePeers),
                                                name: UIApplication.didEnterBackgroundNotification,
@@ -65,6 +76,13 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         configureCollectionViewLayout()
         
         self.transmitter.start()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = false
+        }
     }
     
     open override func didReceiveMemoryWarning() {
@@ -108,9 +126,21 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     // MARK: collection view delegate
     
     open override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Prepares to open a conversation with a concrete user.
+        // Prepares to open a direct conversation with a single user
         self.openUUID = self.onlinePeers.object(at: indexPath.item) as! String
-        self.performSegue(withIdentifier: "openContactChat", sender: self)
+        let chatController = DirectChatViewController()
+        
+        navigationController?.pushViewController(chatController, animated: true)
+        let directMessages = self.loadMessagesForConversation(openUUID)
+        for message in directMessages {
+            message.kind = .text(message.messageBody)
+            message.sender = Sender(id: message.senderId, displayName: message.displayName)
+            print(message.sender)
+        }
+        chatController.messages = directMessages
+        chatController.userUUID = self.openUUID
+        chatController.chatDelegate = self
+        self.chatController = chatController
     }
     
     // MARK: ChatViewControllerDelegate
@@ -119,66 +149,27 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         var dictionary: Dictionary<String, Any>
         var receiverUUID: String?
         var options: BFSendingOption
-        if message.broadcast {
-            // A broadcast message don't have a concrete receiver
-            //this is sent to all peers. For this reason
-            // receiverUUID is nil.
-            receiverUUID = nil
-            // The encryption option is not included because a broadcast message can't
-            // be encrypted.
-            options = [.fullTransmission, .broadcastReceiver]
-            
-            // Creation of the dictionary for the message to be sent
-            // We included the device name because is possible that
-            // the final receiver doesn't have it.
-            dictionary = [
-                messageTextKey: message.messageBody,
-                peerNameKey: UIDevice.current.name,
-                peerTypeKey: DeviceType.ios.rawValue
-            ]
-            
-        } else {
-            // The message isn't not broadcast, instead is a direct message.
-            // A direct message can be encrypted.
-            receiverUUID = uuid
-            options = [.fullTransmission, .encrypted]
-            // Creation of the dictionary for the message to be sent
-            dictionary = [messageTextKey: message.messageBody]
-        }
+        
+        receiverUUID = uuid
+        options = [.fullTransmission, .encrypted]
+        // Creation of the dictionary for the message to be sent
+        dictionary = [messageTextKey: message.messageBody,
+                      peerIdKey: currentUser.uid as Any,
+                      peerNameKey: currentUser.displayName as Any,
+                      peerTypeKey: DeviceType.ios.rawValue,
+                      messageIdKey: message.messageId]
         
         do {
             try self.transmitter.send(dictionary, toUser: receiverUUID, options: options)
-        } catch let err as NSError {
+        }
+        catch let err as NSError {
             print("Error: \(err)")
         }
         
-        // Just persistence management
+        message.senderId = currentUser.uid
+        message.displayName = currentUser.displayName!
+        //Just persistence management
         self.saveMessage(message, forConversation: uuid)
-    }
-    
-    // MARK: Segue Methods
-    
-    open override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
-        let chatController = segue.destination as! ChatViewController
-        if segue.identifier == "openContactChat" {
-            // Conversation with a concrete user.
-            chatController.online = openStateOnline
-            chatController.userUUID = openUUID
-            let peerInfo: Dictionary<String, Any> = self.peerNamesDictionary[openUUID] as! Dictionary
-            chatController.deviceName = peerInfo["name"] as! String
-            chatController.deviceType = DeviceType(rawValue: peerInfo["type"] as! Int)!
-            chatController.messages = self.loadMessagesForConversation(openUUID)
-            chatController.broadcastType = false
-        } else {
-            // Broadcast conversation
-            // (the messages will be sent to all available users)
-            chatController.online = openStateOnline
-            chatController.userUUID = "broadcast"
-            chatController.messages = self.loadMessagesForConversation(broadcastConversation)
-            chatController.broadcastType = true
-        }
-        chatController.chatDelegate = self
-        self.chatController = chatController
     }
     
     // MARK: BFTransmitterDelegate
@@ -230,12 +221,6 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
         self.discardUUID(user)
         self.collectionView.reloadData()
-        if self.chatController != nil,
-            self.chatController!.userUUID == user {
-            // If currently a the related conversation is shown,
-            // update the state.
-            self.chatController!.updateOnlineTo(false)
-        }
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didFailAtStartWithError error: Error) {
@@ -265,12 +250,6 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         self.discardUUID(user)
         self.onlinePeers.add(user)
         self.collectionView.reloadData()
-        if self.chatController != nil,
-            self.chatController!.userUUID == user {
-            // If currently a the related conversation is shown,
-            // update the state.
-            self.chatController!.updateOnlineTo(true)
-        }
     }
     
     // MARK: Name and message utils
@@ -292,7 +271,8 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     }
     
     func sendDeviceNameToUser(_ user: String) {
-        let dictionary = [peerNameKey: UIDevice.current.name as Any,
+        let dictionary = [peerNameKey: currentUser.displayName as Any,
+                          peerIdKey: currentUser.uid as Any,
                           peerTypeKey: DeviceType.ios.rawValue]
         let options: BFSendingOption = [.directTransmission, .encrypted]
         
@@ -304,42 +284,32 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     }
     
     func processReceivedMessage(_ dictionary: Dictionary<String, Any>, fromUser user: String, byMesh mesh: Bool, asBroadcast broadcast: Bool) {
+        
         // Processing a new message
         let text: String = dictionary[messageTextKey] as! String
-        let message = Message()
-        message.messageBody = text
+        let messageId: String = dictionary[messageIdKey] as! String
+        let peerId: String = dictionary[peerIdKey] as! String
+        let peerName: String = dictionary[peerNameKey] as! String
+        let message = Message(messageId: messageId, messageBody: text, sentDate: Date())
+        message.senderId = peerId
+        message.displayName = peerName
+        message.sender = Sender(id: peerId, displayName: peerName)
+        message.kind = .text(text)
         message.received = true
-        message.date = Date()
         message.mesh = mesh
-        message.broadcast = broadcast // If YES received message is broadcast.
+        message.broadcast = broadcast// If YES received message is broadcast.
         
-        let conversation: String
-        if message.broadcast {
-            conversation = broadcastConversation
-            let deviceType = DeviceType(rawValue: dictionary[peerTypeKey] as! Int)!
-            message.deviceType = deviceType
-            // The deviceName will be processed because it's possible we don't have it yet.
-            processReceivedPeerInfo(dictionary, fromUser: user)
-        } else {
-            conversation = user
-        }
-        let peerInfo = self.peerNamesDictionary[user] as! Dictionary<String, Any>
-        message.sender = peerInfo["name"] as! String
+        let conversation: String = user
         self.saveMessage(message, forConversation: conversation)
         
         // YES if the related conversation for the user is shown
-        let showingSameUser = !message.broadcast &&
-            self.chatController != nil &&
-            self.chatController?.userUUID == user
-        // YES if received message is for broadcast and broadcast is shown
-        let showingBroadcast = message.broadcast &&
-            self.chatController != nil &&
-            self.chatController!.broadcastType
-        if showingBroadcast || showingSameUser {
+        let showingSameUser = self.chatController != nil && self.chatController?.userUUID == user
+        if showingSameUser {
             // If the related conversation to the message is being shown.
             // update messages.
-            self.chatController!.addMessage(message)
+            self.chatController!.insertMessage(message)
         }
+        
     }
     
     func processReceivedPeerInfo(_ peerInfo: Dictionary<String, Any>, fromUser user: String) {
@@ -366,24 +336,24 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     
     func saveMessage(_ message: Message, forConversation conversation: String) {
         let filePath = self.fullPathForFile(conversation)
-        let messages: NSMutableArray = self.loadMessagesForConversation(conversation)
-        messages.insert(message, at: 0)
+        var messages: [Message] = self.loadMessagesForConversation(conversation)
+        messages.append(message)
         let coder = NSKeyedArchiver(requiringSecureCoding: true)
         coder.encode(messages, forKey: NSKeyedArchiveRootObjectKey)
         let data = coder.encodedData
         try? data.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
     }
     
-    func loadMessagesForConversation(_ conversation: String) -> NSMutableArray {
+    func loadMessagesForConversation(_ conversation: String) -> [Message] {
         let filePath = self.fullPathForFile(conversation)
         let data: Data? = try? Data(contentsOf: URL(fileURLWithPath: filePath))
-        let messages: NSMutableArray
+        let loadedMessages: [Message]
         if data != nil {
-            messages = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! NSMutableArray
+            loadedMessages = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! [Message]
         } else {
-            messages = NSMutableArray()
+            loadedMessages = [Message]()
         }
-        return messages
+        return loadedMessages
     }
     
     @objc func savePeers() {

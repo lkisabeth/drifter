@@ -42,9 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-let primaryButtonColor = UIColor(red: 147 / 255, green: 55 / 255, blue: 218 / 255, alpha: 1)
-let secondaryButtonColor = UIColor(red: 73 / 255, green: 26 / 255, blue: 136 / 255, alpha: 1)
-
 // ensure buttons have a minimum hit area (to improve UX on small buttons)
 fileprivate let minimumHitArea = CGSize(width: 50, height: 50)
 

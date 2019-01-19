@@ -15,6 +15,7 @@ target 'Drifter' do
   pod 'TransitionButton'
   pod 'VegaScrollFlowLayout'
   pod 'MessageKit'
+  pod 'MessageInputBar', :git => 'https://github.com/MessageKit/MessageInputBar.git', :branch => 'master'
 
   target 'DrifterTests' do
     inherit! :search_paths
