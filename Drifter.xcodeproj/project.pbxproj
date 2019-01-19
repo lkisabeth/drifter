@@ -33,7 +33,6 @@
 		07C8230421E6F93E001A2832 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230321E6F93E001A2832 /* ChatViewController.swift */; };
 		07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230521E6F967001A2832 /* LoginViewController.swift */; };
 		07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230721E6F97D001A2832 /* RegisterViewController.swift */; };
-		07C8230A21E6F997001A2832 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230921E6F997001A2832 /* ViewController.swift */; };
 		07C8230C21E6F9B8001A2832 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */; };
 		07DF102821E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
 		07DF102921E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
@@ -97,7 +96,6 @@
 		07C8230321E6F93E001A2832 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		07C8230521E6F967001A2832 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		07C8230721E6F97D001A2832 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		07C8230921E6F997001A2832 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -269,7 +267,6 @@
 				07C8230321E6F93E001A2832 /* ChatViewController.swift */,
 				07C8230521E6F967001A2832 /* LoginViewController.swift */,
 				07C8230721E6F97D001A2832 /* RegisterViewController.swift */,
-				07C8230921E6F997001A2832 /* ViewController.swift */,
 				07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */,
 				07017B8E21E7DBBF00A8FDE8 /* ChatListController.swift */,
 				07909E3C21F0E88200587DB6 /* DirectChatViewController.swift */,
@@ -689,7 +686,6 @@
 				07909E5421F0F47800587DB6 /* CustomMessageFlowLayout.swift in Sources */,
 				07C8230421E6F93E001A2832 /* ChatViewController.swift in Sources */,
 				07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */,
-				07C8230A21E6F997001A2832 /* ViewController.swift in Sources */,
 				07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */,
 				07C822FE21E6F81F001A2832 /* CustomCell.swift in Sources */,
 				07909E5A21F240FC00587DB6 /* NavigationController.swift in Sources */,
