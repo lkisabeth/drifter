@@ -7,5 +7,27 @@
 //
 
 import Foundation
+import IGListKit
 
-struct Peer {}
+class Peer {
+    var identifier: String
+    var displayName: String
+    
+    public init(identifier: String, displayName: String) {
+        self.identifier = identifier
+        self.displayName = displayName
+    }
+}
+
+extension Peer: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        return identifier as NSString
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        guard let object = object as? Peer else {
+            return false
+        }
+        return self.identifier == object.identifier
+    }
+}

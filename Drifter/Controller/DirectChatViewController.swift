@@ -74,14 +74,14 @@ open class DirectChatViewController: BaseChatViewController {
         messageInputBar.textViewPadding.right = -38
         let charCountButton = InputBarButtonItem()
             .configure {
-                $0.title = "0/140"
+                $0.title = "0/280"
                 $0.contentHorizontalAlignment = .right
                 $0.setTitleColor(UIColor(white: 0.6, alpha: 1), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .bold)
                 $0.setSize(CGSize(width: 50, height: 25), animated: false)
             }.onTextViewDidChange { item, textView in
-                item.title = "\(textView.text.count)/140"
-                let isOverLimit = textView.text.count > 140
+                item.title = "\(textView.text.count)/280"
+                let isOverLimit = textView.text.count > 280
                 item.messageInputBar?.shouldManageSendButtonEnabledState = !isOverLimit // Disable automated management when over limit
                 if isOverLimit {
                     item.messageInputBar?.sendButton.isEnabled = false

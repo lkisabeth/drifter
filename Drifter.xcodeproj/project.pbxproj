@@ -22,6 +22,7 @@
 		07909E5621F0F4C900587DB6 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909E5521F0F4C900587DB6 /* UserDefaults+Extensions.swift */; };
 		07909E5821F1396A00587DB6 /* BaseChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909E5721F1396A00587DB6 /* BaseChatViewController.swift */; };
 		07909E5A21F240FC00587DB6 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909E5921F240FC00587DB6 /* NavigationController.swift */; };
+		07909E5E21F4F5F200587DB6 /* NearbyPeersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909E5D21F4F5F200587DB6 /* NearbyPeersSectionController.swift */; };
 		07C822C921E6F546001A2832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C822C821E6F546001A2832 /* AppDelegate.swift */; };
 		07C822D021E6F546001A2832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C822CE21E6F546001A2832 /* Main.storyboard */; };
 		07C822D221E6F547001A2832 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C822D121E6F547001A2832 /* Assets.xcassets */; };
@@ -77,6 +78,7 @@
 		07909E5521F0F4C900587DB6 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		07909E5721F1396A00587DB6 /* BaseChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChatViewController.swift; sourceTree = "<group>"; };
 		07909E5921F240FC00587DB6 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		07909E5D21F4F5F200587DB6 /* NearbyPeersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPeersSectionController.swift; sourceTree = "<group>"; };
 		07C822C521E6F546001A2832 /* Drifter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drifter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C822C821E6F546001A2832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07C822CF21E6F546001A2832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				07909E3C21F0E88200587DB6 /* DirectChatViewController.swift */,
 				07909E5721F1396A00587DB6 /* BaseChatViewController.swift */,
 				07909E5921F240FC00587DB6 /* NavigationController.swift */,
+				07909E5D21F4F5F200587DB6 /* NearbyPeersSectionController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -601,6 +605,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
@@ -679,6 +684,7 @@
 				07909E5421F0F47800587DB6 /* CustomMessageFlowLayout.swift in Sources */,
 				07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */,
 				07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */,
+				07909E5E21F4F5F200587DB6 /* NearbyPeersSectionController.swift in Sources */,
 				07C822FE21E6F81F001A2832 /* CustomCell.swift in Sources */,
 				07909E5A21F240FC00587DB6 /* NavigationController.swift in Sources */,
 				076ED88121EFB51500F13CCE /* PeerCell.swift in Sources */,

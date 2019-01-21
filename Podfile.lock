@@ -168,6 +168,11 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.14.0)
   - GTMSessionFetcher/Core (1.2.1)
+  - IGListKit (3.4.0):
+    - IGListKit/Default (= 3.4.0)
+  - IGListKit/Default (3.4.0):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.4.0)
   - leveldb-library (1.20)
   - MessageInputBar (0.4.1):
     - MessageInputBar/Core (= 0.4.1)
@@ -196,6 +201,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase
   - FirebaseUI
+  - IGListKit (~> 3.0)
   - MessageInputBar (from `https://github.com/MessageKit/MessageInputBar.git`, branch `master`)
   - MessageKit
   - SVProgressHUD
@@ -228,6 +234,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - IGListKit
     - leveldb-library
     - MessageKit
     - nanopb
@@ -274,6 +281,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 19eec1ffd34de29453f5fab5b4697ad0f240ad51
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
   MessageKit: 29c1c87e5a396d2ca7a3f712e5171dc9aba42a1e
@@ -286,6 +294,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   VegaScrollFlowLayout: 9158061f29179147755f937c2b21693fc5dbbac3
 
-PODFILE CHECKSUM: 976a833449b61e0b4116311533e6f4b14c529971
+PODFILE CHECKSUM: 1ef3fcf7900fe1be07e4bb38dd3e092f4a208f1b
 
 COCOAPODS: 1.5.3

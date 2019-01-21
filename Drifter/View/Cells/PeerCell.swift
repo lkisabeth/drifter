@@ -9,46 +9,55 @@
 import UIKit
 
 class PeerCell: UICollectionViewCell {
-    @IBOutlet private var peerIdLabel: UILabel!
-    @IBOutlet private var onlineStatusLabel: UILabel!
     
-    @IBOutlet var deviceTypeImageView: UIImageView!
+    fileprivate let padding: CGFloat = 15.0
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        let firstSubView: CALayer = layer.sublayers!.first!
-        let secondSubView: CALayer = firstSubView.sublayers!.first!
-        
-        let cornerRadius: CGFloat = 20
-        layer.cornerRadius = cornerRadius
-        firstSubView.cornerRadius = cornerRadius
-        firstSubView.masksToBounds = true
-        secondSubView.cornerRadius = cornerRadius
-        secondSubView.masksToBounds = true
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.3
-        layer.shadowOffset = CGSize(width: 0, height: 5)
-        layer.masksToBounds = false
+    lazy private var titleLabel: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = .clear
+        view.textAlignment = .left
+        view.font = .systemFont(ofSize: 17)
+        view.textColor = .darkText
+        self.contentView.addSubview(view)
+        return view
+    }()
+    
+    lazy private var detailLabel: UILabel = {
+        let view = UILabel()
+        view.backgroundColor = .clear
+        view.textAlignment = .right
+        view.font = .systemFont(ofSize: 17)
+        view.textColor = .lightGray
+        self.contentView.addSubview(view)
+        return view
+    }()
+    
+    var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
+        }
     }
     
-    func configureWith(_ peerInfo: Dictionary<String, Any>) {
-        if peerInfo["name"] != nil {
-            let userDeviceName = peerInfo["name"] as! String
-            peerIdLabel.text = userDeviceName
+    var detail: String? {
+        get {
+            return detailLabel.text
         }
-        
-        onlineStatusLabel.textColor = UIColor.vegaGreen
-        onlineStatusLabel.text = "ONLINE"
-        
-        let devType: DeviceType = DeviceType(rawValue: peerInfo["type"] as! Int)!
-        switch devType {
-        case .undefined:
-            deviceTypeImageView.image = nil
-        case .android:
-            deviceTypeImageView.image = UIImage(named: "android")
-        case .ios:
-            deviceTypeImageView.image = UIImage(named: "ios")
+        set {
+            detailLabel.text = newValue
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let frame = contentView.bounds.insetBy(dx: padding, dy: 0)
+        titleLabel.frame = frame
+        detailLabel.frame = frame
     }
 }
+
+
+
+

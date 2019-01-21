@@ -12,7 +12,7 @@ import Firebase
 import MessageKit
 import TransitionButton
 import UIKit
-import VegaScrollFlowLayout
+import IGListKit
 
 private let itemHeight: CGFloat = 84
 private let lineSpacing: CGFloat = 20
@@ -25,22 +25,77 @@ private var peerIdKey: String = "peer_id"
 private var peerTypeKey: String = "peer_type"
 private var messageIdKey: String = "message_id"
 
-open class ChatListController: UICollectionViewController, BFTransmitterDelegate, DirectChatViewControllerDelegate {
+open class ChatListController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate, NearbyPeersSectionControllerDelegate, BFTransmitterDelegate, DirectChatViewControllerDelegate {
+    
     fileprivate var openUUID: String = ""
     fileprivate var openStateOnline: Bool = true
     fileprivate var transmitter: BFTransmitter
     fileprivate var peerNamesDictionary: NSMutableDictionary
-    fileprivate var onlinePeers: NSMutableArray
+    fileprivate var onlinePeers: [Peer]
     fileprivate weak var chatController: DirectChatViewController?
-    fileprivate let cellId = "PeerCell"
     
     var currentUser = Auth.auth().currentUser!
+    
+    // Setup for IGListKit (data driven collection view)
+    @IBOutlet weak var collectionView: UICollectionView!
+    lazy var adapter: ListAdapter =  {
+        let updater = ListAdapterUpdater()
+        let adapter = ListAdapter(updater: updater,
+                                  viewController: self,
+                                  workingRangeSize: 1)
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+        return adapter
+    }()
+    
+    public func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return onlinePeers
+    }
+    
+    public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        let sectionController = NearbyPeersSectionController(isReorderable: true)
+        sectionController.delegate = self
+        return sectionController
+    }
+    
+    public func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
+    }
+    
+    // MARK: - Interactive Reordering
+    @available(iOS 9.0, *)
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            let touchLocation = gesture.location(in: self.collectionView)
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: touchLocation) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            if let view = gesture.view {
+                let position = gesture.location(in: view)
+                collectionView.updateInteractiveMovementTargetPosition(position)
+            }
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+    
+    // MARK: - ListAdapterMoveDelegate
+    public func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
+        guard let objects = objects as? [Peer] else { return }
+        onlinePeers = objects
+    }
+
     
     public required init?(coder aDecoder: NSCoder) {
         // Transmitter initialization
         self.transmitter = BFTransmitter(apiKey: "ed18b2d0-8a19-4ad6-9dce-311b66b13d99")
         self.peerNamesDictionary = NSMutableDictionary()
-        self.onlinePeers = NSMutableArray()
+        self.onlinePeers = [Peer]()
         super.init(coder: aDecoder)
         self.transmitter.delegate = self
         self.transmitter.isBackgroundModeEnabled = true
@@ -53,13 +108,14 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        
-        self.collectionView.setNeedsLayout()
-        self.collectionView.layoutIfNeeded()
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        _ = adapter
+        if #available(iOS 9.0, *) {
+            adapter.moveDelegate = self
+        }
         
         title = "Nearby Peers"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -69,11 +125,6 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
                                                object: nil)
         let logOutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.logOut(_:)))
         navigationItem.leftBarButtonItem = logOutButton
-        
-        let nib = UINib(nibName: cellId, bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: cellId)
-        collectionView.contentInset.bottom = itemHeight
-        configureCollectionViewLayout()
         
         self.transmitter.start()
     }
@@ -97,37 +148,11 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         }
     }
     
-    // MARK: Collection view data source
-    
-    open override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.onlinePeers.count
-    }
-    
-    open override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PeerCell
-        
-        let identifier: String = self.onlinePeers.object(at: indexPath.item) as! String
-        let peerInfo = self.peerNamesDictionary[identifier] as! Dictionary<String, Any>
-        
-        cell.configureWith(peerInfo)
-        
-        return cell
-    }
-    
-    private func configureCollectionViewLayout() {
-        guard let layout = collectionView.collectionViewLayout as? VegaScrollFlowLayout else { return }
-        layout.minimumLineSpacing = lineSpacing
-        layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        let itemWidth = view.safeAreaLayoutGuide.layoutFrame.width
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
     // MARK: collection view delegate
     
-    open override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Prepares to open a direct conversation with a single user
-        self.openUUID = self.onlinePeers.object(at: indexPath.item) as! String
+    func didSelect(_ object: Any?) {
+        let peer = object as! Peer
+        self.openUUID = peer.identifier
         let chatController = DirectChatViewController()
         
         navigationController?.pushViewController(chatController, animated: true)
@@ -219,7 +244,7 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
         self.discardUUID(user)
-        self.collectionView.reloadData()
+        adapter.performUpdates(animated: true, completion: nil)
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didFailAtStartWithError error: Error) {
@@ -247,8 +272,7 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
         }
         
         self.discardUUID(user)
-        self.onlinePeers.add(user)
-        self.collectionView.reloadData()
+        adapter.performUpdates(animated: true, completion: nil)
     }
     
     // MARK: Name and message utils
@@ -319,16 +343,19 @@ open class ChatListController: UICollectionViewController, BFTransmitterDelegate
             let userInfo: Dictionary<String, Any> = ["name": name,
                                                      "type": receivedDeviceType]
             self.peerNamesDictionary.setValue(userInfo, forKey: user)
-            self.collectionView.reloadData()
+            let peer = Peer(identifier: user, displayName: peerInfo[peerNameKey] as! String)
+            self.onlinePeers.append(peer)
+            adapter.performUpdates(animated: true, completion: nil)
         }
     }
     
     // MARK: Clumsy data management
     
     func discardUUID(_ uuid: String) {
-        if self.onlinePeers.index(of: uuid) != NSNotFound {
-            self.onlinePeers.remove(uuid)
+        if let peerToBeRemoved = self.onlinePeers.firstIndex(where: { $0.identifier == uuid }) {
+            self.onlinePeers.remove(at: peerToBeRemoved)
         }
+        adapter.performUpdates(animated: true, completion: nil)
     }
     
     func saveMessage(_ message: Message, forConversation conversation: String) {
