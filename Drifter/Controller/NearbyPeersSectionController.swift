@@ -25,7 +25,7 @@ class NearbyPeersSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext!.containerSize.width, height: 55)
+        return CGSize(width: collectionContext!.containerSize.width, height: 100)
     }
     
     override func numberOfItems() -> Int {
@@ -36,6 +36,7 @@ class NearbyPeersSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: PeerCell.self, for: self, at: index) as? PeerCell else {
             fatalError()
         }
+        cell.layer.cornerRadius = cell.bounds.height / 2
         cell.title = peer?.displayName ?? "No Display Name Given"
         cell.detail = "@" + (peer?.displayName ?? "NoName")
         return cell

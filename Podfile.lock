@@ -189,6 +189,7 @@ PODS:
     - SDWebImage/Core (= 4.4.3)
   - SDWebImage/Core (4.4.3)
   - SVProgressHUD (2.2.5)
+  - SwipeableTabBarController (1.4.0)
   - TransitionButton (0.5.2)
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.2):
@@ -205,6 +206,7 @@ DEPENDENCIES:
   - MessageInputBar (from `https://github.com/MessageKit/MessageInputBar.git`, branch `master`)
   - MessageKit
   - SVProgressHUD
+  - SwipeableTabBarController
   - TransitionButton
   - VegaScrollFlowLayout
 
@@ -241,6 +243,7 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - SVProgressHUD
+    - SwipeableTabBarController
     - TransitionButton
     - TwitterCore
     - TwitterKit
@@ -289,11 +292,12 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwipeableTabBarController: 3a393aa51f1c49c4517b05047c2688a6175c634c
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   VegaScrollFlowLayout: 9158061f29179147755f937c2b21693fc5dbbac3
 
-PODFILE CHECKSUM: 1ef3fcf7900fe1be07e4bb38dd3e092f4a208f1b
+PODFILE CHECKSUM: 1e26aac179e36ac21d6fd8d7b3364331ed50a257
 
 COCOAPODS: 1.5.3

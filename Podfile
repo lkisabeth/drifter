@@ -17,6 +17,7 @@ target 'Drifter' do
   pod 'MessageKit'
   pod 'MessageInputBar', :git => 'https://github.com/MessageKit/MessageInputBar.git', :branch => 'master'
   pod 'IGListKit', '~> 3.0'
+  pod 'SwipeableTabBarController'
 
   target 'DrifterTests' do
     inherit! :search_paths

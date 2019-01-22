@@ -28,6 +28,11 @@ open class DirectChatViewController: BaseChatViewController {
         if let layout = messagesCollectionView.collectionViewLayout as? CustomMessagesFlowLayout {
             layout.textMessageSizeCalculator.incomingAvatarSize = .zero
             layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+            let labelInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+            layout.textMessageSizeCalculator.incomingMessageTopLabelAlignment = .init(textAlignment: .left, textInsets: labelInsets)
+            layout.textMessageSizeCalculator.incomingMessageBottomLabelAlignment = .init(textAlignment: .left, textInsets: labelInsets)
+            layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment = .init(textAlignment: .right, textInsets: labelInsets)
+            layout.textMessageSizeCalculator.outgoingMessageBottomLabelAlignment = .init(textAlignment: .right, textInsets: labelInsets)
         }
         super.viewDidLoad()
         

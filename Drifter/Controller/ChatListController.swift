@@ -36,6 +36,8 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
     
     var currentUser = Auth.auth().currentUser!
     
+    var refreshControl: UIRefreshControl?
+    
     // Setup for IGListKit (data driven collection view)
     @IBOutlet weak var collectionView: UICollectionView!
     lazy var adapter: ListAdapter =  {
@@ -105,9 +107,6 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
     }
     
     open override func viewDidLoad() {
@@ -117,7 +116,7 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
             adapter.moveDelegate = self
         }
         
-        title = "Nearby Peers"
+        title = "Nearby"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatListController.savePeers),
@@ -125,15 +124,25 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
                                                object: nil)
         let logOutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.logOut(_:)))
         navigationItem.leftBarButtonItem = logOutButton
-        
+
+        addRefreshControl()
         self.transmitter.start()
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
-        }
+    func addRefreshControl() {
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.alwaysBounceVertical = true
+        collectionView.refreshControl?.layer.zPosition = -1
+        collectionView.refreshControl?.tintColor = UIColor.primaryColor
+        collectionView.refreshControl?.attributedTitle = NSAttributedString(string: "Double checking for more people..")
+        collectionView.refreshControl?.addTarget(self, action: #selector(refreshPeers), for: .valueChanged)
+    }
+    
+    @objc func refreshPeers() {
+        collectionView.refreshControl?.beginRefreshing()
+        adapter.performUpdates(animated: true, completion: { (completed) in
+            self.collectionView.refreshControl?.endRefreshing()
+        })
     }
     
     open override func didReceiveMemoryWarning() {
@@ -290,7 +299,7 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
         
         // In case the other user don't have our devicename,
         // this is sent as an initial message.
-        self.sendDeviceNameToUser(user)
+        sendDeviceNameToUser(user)
     }
     
     func sendDeviceNameToUser(_ user: String) {
