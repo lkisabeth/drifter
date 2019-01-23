@@ -22,6 +22,9 @@ open class DirectChatViewController: BaseChatViewController {
     let currentUser = Auth.auth().currentUser!
     var userUUID: String = ""
     
+    open override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
     open override func viewDidLoad() {
         messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
         messagesCollectionView.register(CustomCell.self)
@@ -35,9 +38,13 @@ open class DirectChatViewController: BaseChatViewController {
             layout.textMessageSizeCalculator.outgoingMessageBottomLabelAlignment = .init(textAlignment: .right, textInsets: labelInsets)
         }
         super.viewDidLoad()
-        
+
         messagesCollectionView.scrollToBottom(animated: true)
         updateTitleView(title: "Direct Chat", subtitle: "Testing")
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func configureMessageCollectionView() {

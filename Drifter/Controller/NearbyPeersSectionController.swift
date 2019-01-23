@@ -37,8 +37,7 @@ class NearbyPeersSectionController: ListSectionController {
             fatalError()
         }
         cell.layer.cornerRadius = cell.bounds.height / 2
-        cell.title = peer?.displayName ?? "No Display Name Given"
-        cell.detail = "@" + (peer?.displayName ?? "NoName")
+        cell.text = peer!.displayName
         return cell
     }
     

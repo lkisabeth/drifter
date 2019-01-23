@@ -48,7 +48,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZM-HM-ack" userLabel="Online Status Label">
                                 <rect key="frame" x="0.0" y="64" width="200" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.31557071208953857" green="0.35190755128860474" blue="0.39888250827789307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -80,9 +80,9 @@
             </constraints>
             <size key="customSize" width="338" height="128"/>
             <connections>
-                <outlet property="deviceTypeImageView" destination="F73-HK-Ou3" id="DaO-wP-8dS"/>
-                <outlet property="onlineStatusLabel" destination="iZM-HM-ack" id="7Qm-dc-FvT"/>
-                <outlet property="peerIdLabel" destination="SWE-mQ-Ebu" id="Ji8-os-Qpj"/>
+                <outlet property="deviceTypeImageView" destination="F73-HK-Ou3" id="9GK-Jz-5HG"/>
+                <outlet property="displayNameLabel" destination="SWE-mQ-Ebu" id="Phx-mv-sF9"/>
+                <outlet property="onlineLabel" destination="iZM-HM-ack" id="Nhx-FO-wbm"/>
             </connections>
             <point key="canvasLocation" x="270.39999999999998" y="-146.62668665667167"/>
         </collectionViewCell>
