@@ -25,7 +25,7 @@ private var peerIdKey: String = "peer_id"
 private var peerTypeKey: String = "peer_type"
 private var messageIdKey: String = "message_id"
 
-open class ChatListController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate, NearbyPeersSectionControllerDelegate, BFTransmitterDelegate, DirectChatViewControllerDelegate {
+open class ChatListController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate, NearbyPeersSectionControllerDelegate, BFTransmitterDelegate, DirectChatViewControllerDelegate, DriftChatViewControllerDelegate {
     
     fileprivate var openUUID: String = ""
     fileprivate var openStateOnline: Bool = true
@@ -115,10 +115,9 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
         if #available(iOS 9.0, *) {
             adapter.moveDelegate = self
         }
-        
+
         title = "Nearby"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(ChatListController.savePeers),
                                                name: UIApplication.didEnterBackgroundNotification,
                                                object: nil)
@@ -163,7 +162,7 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
         let peer = object as! Peer
         self.openUUID = peer.identifier
         let chatController = DirectChatViewController()
-        
+
         navigationController?.pushViewController(chatController, animated: true)
         let directMessages = self.loadMessagesForConversation(openUUID)
         for message in directMessages {

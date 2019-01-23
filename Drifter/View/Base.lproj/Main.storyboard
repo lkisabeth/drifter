@@ -107,7 +107,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cr-yL-pe7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5511" y="140"/>
+            <point key="canvasLocation" x="4910" y="6"/>
         </scene>
         <!--Direct Chat View Controller-->
         <scene sceneID="SG1-sD-1y5">
@@ -125,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gry-1A-PPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2769" y="892"/>
+            <point key="canvasLocation" x="5689" y="6"/>
         </scene>
         <!--LogInViewController-->
         <scene sceneID="vYw-R4-J5X">
@@ -502,7 +502,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCo-ew-a0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4847" y="140"/>
+            <point key="canvasLocation" x="4246" y="6"/>
         </scene>
         <!--MainTabBarController-->
         <scene sceneID="CNa-a6-D99">
@@ -525,7 +525,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfW-70-re1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3188" y="140"/>
+            <point key="canvasLocation" x="2772" y="10"/>
         </scene>
         <!--NavigationController-->
         <scene sceneID="2B8-Wo-YlW">
@@ -567,13 +567,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmc-0S-ZOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4153" y="-453"/>
+            <point key="canvasLocation" x="3553" y="-587"/>
         </scene>
         <!--Contact List-->
         <scene sceneID="zO7-wF-ArQ">
             <objects>
-                <collectionViewController title="Contact List" id="cDJ-9i-gnq" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" prefetchingEnabled="NO" id="iEX-tj-D9b" customClass="IGListCollectionView" customModule="Drifter" customModuleProvider="target">
+                <collectionViewController title="Contact List" id="cDJ-9i-gnq" customClass="ContactListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" prefetchingEnabled="NO" id="iEX-tj-D9b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -592,32 +592,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VeL-8G-g4I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4846" y="-567"/>
-        </scene>
-        <!--Drift Chat-->
-        <scene sceneID="kuc-Ou-Fch">
-            <objects>
-                <collectionViewController title="Drift Chat" id="NIR-ZP-pfl" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" prefetchingEnabled="NO" id="C3J-uL-j1y" customClass="IGListCollectionView" customModule="Drifter" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lqr-D2-77v">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="cST-Qs-ski"/>
-                    <connections>
-                        <outlet property="collectionView" destination="C3J-uL-j1y" id="fcK-n6-Vyw"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q8J-Ez-amO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4846" y="836"/>
+            <point key="canvasLocation" x="4246" y="-650"/>
         </scene>
         <!--DriftChatNavigationController-->
         <scene sceneID="P7T-QJ-DAH">
@@ -634,12 +609,32 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="NIR-ZP-pfl" kind="relationship" relationship="rootViewController" id="PiY-vV-M6I"/>
+                        <segue destination="NNy-eV-lFW" kind="relationship" relationship="rootViewController" id="v85-5r-42r"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtR-jM-ZbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4153" y="726"/>
+            <point key="canvasLocation" x="3553" y="592"/>
+        </scene>
+        <!--Drift Chat View Controller-->
+        <scene sceneID="Aef-Xx-b2e">
+            <objects>
+                <viewController storyboardIdentifier="DriftChatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NNy-eV-lFW" customClass="DriftChatViewController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JOd-bH-0tE"/>
+                        <viewControllerLayoutGuide type="bottom" id="LNa-nz-j9n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wpQ-Ge-IGZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9Pe-OJ-spR"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Peo-XH-8Bg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4246" y="667"/>
         </scene>
     </scenes>
     <resources>

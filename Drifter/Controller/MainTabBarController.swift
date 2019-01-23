@@ -24,7 +24,7 @@ class MainTabBarController: SwipeableTabBarController {
         //        setTapTransitioning(transition: nil)
         
         /// Set swipe to only work when strictly horizontal.
-        setDiagonalSwipe(enabled: true)
+        setDiagonalSwipe(enabled: false)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

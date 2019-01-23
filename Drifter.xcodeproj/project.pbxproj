@@ -14,6 +14,9 @@
 		07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9721E7F9B400A8FDE8 /* StoreKit.framework */; };
 		07017B9A21E7F9FC00A8FDE8 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */; };
 		071C6FF921ED89C200F45790 /* CircleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071C6FF821ED89C200F45790 /* CircleSegue.swift */; };
+		074461A421F77EE4006401DE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A321F77EE4006401DE /* OnboardingViewController.swift */; };
+		074461A621F78A19006401DE /* DriftChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A521F78A19006401DE /* DriftChatViewController.swift */; };
+		074461A821F7DE72006401DE /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A721F7DE72006401DE /* ContactListViewController.swift */; };
 		076ED88121EFB51500F13CCE /* PeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ED87F21EFB51500F13CCE /* PeerCell.swift */; };
 		076ED88221EFB51500F13CCE /* PeerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076ED88021EFB51500F13CCE /* PeerCell.xib */; };
 		07909E3D21F0E88200587DB6 /* DirectChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909E3C21F0E88200587DB6 /* DirectChatViewController.swift */; };
@@ -71,6 +74,9 @@
 		07017B9721E7F9B400A8FDE8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		071C6FF821ED89C200F45790 /* CircleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSegue.swift; sourceTree = "<group>"; };
+		074461A321F77EE4006401DE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		074461A521F78A19006401DE /* DriftChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftChatViewController.swift; sourceTree = "<group>"; };
+		074461A721F7DE72006401DE /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
 		076ED87F21EFB51500F13CCE /* PeerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerCell.swift; sourceTree = "<group>"; };
 		076ED88021EFB51500F13CCE /* PeerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeerCell.xib; sourceTree = "<group>"; };
 		07909E3C21F0E88200587DB6 /* DirectChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectChatViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +279,9 @@
 				07909E5921F240FC00587DB6 /* NavigationController.swift */,
 				07909E5D21F4F5F200587DB6 /* NearbyPeersSectionController.swift */,
 				07909E5F21F6A3EA00587DB6 /* MainTabBarController.swift */,
+				074461A321F77EE4006401DE /* OnboardingViewController.swift */,
+				074461A521F78A19006401DE /* DriftChatViewController.swift */,
+				074461A721F7DE72006401DE /* ContactListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -682,11 +691,13 @@
 				07909E4521F0F28000587DB6 /* UIViewController+Extensions.swift in Sources */,
 				07909E3D21F0E88200587DB6 /* DirectChatViewController.swift in Sources */,
 				07F9A1E221EF8A4700917650 /* UIColor+Extensions.swift in Sources */,
+				074461A421F77EE4006401DE /* OnboardingViewController.swift in Sources */,
 				07C8230C21E6F9B8001A2832 /* WelcomeViewController.swift in Sources */,
 				07909E5621F0F4C900587DB6 /* UserDefaults+Extensions.swift in Sources */,
 				07C8230221E6F8D7001A2832 /* Message.swift in Sources */,
 				07909E5821F1396A00587DB6 /* BaseChatViewController.swift in Sources */,
 				07909E5421F0F47800587DB6 /* CustomMessageFlowLayout.swift in Sources */,
+				074461A621F78A19006401DE /* DriftChatViewController.swift in Sources */,
 				07C8230821E6F97D001A2832 /* RegisterViewController.swift in Sources */,
 				07909E6021F6A3EA00587DB6 /* MainTabBarController.swift in Sources */,
 				07C8230621E6F967001A2832 /* LoginViewController.swift in Sources */,
@@ -694,6 +705,7 @@
 				07C822FE21E6F81F001A2832 /* CustomCell.swift in Sources */,
 				07909E5A21F240FC00587DB6 /* NavigationController.swift in Sources */,
 				076ED88121EFB51500F13CCE /* PeerCell.swift in Sources */,
+				074461A821F7DE72006401DE /* ContactListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

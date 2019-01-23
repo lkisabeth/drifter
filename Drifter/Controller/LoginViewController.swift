@@ -26,7 +26,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
+
         logInButton.backgroundColor = UIColor.primaryButtonColor
         logInButton.setTitleColor(.white, for: .normal)
         logInButton.setTitle("Log In", for: .normal)

@@ -27,7 +27,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
+
         signUpButton.backgroundColor = UIColor.secondaryButtonColor
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.setTitle("Sign Up", for: .normal)
