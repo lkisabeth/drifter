@@ -183,14 +183,24 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
         var receiverUUID: String?
         var options: BFSendingOption
         
-        receiverUUID = uuid
-        options = [.fullTransmission, .encrypted]
-        // Creation of the dictionary for the message to be sent
-        dictionary = [messageTextKey: message.messageBody,
-                      peerIdKey: currentUser.uid as Any,
-                      peerNameKey: currentUser.displayName as Any,
-                      peerTypeKey: DeviceType.ios.rawValue,
-                      messageIdKey: message.messageId]
+        if message.broadcast {
+            receiverUUID = nil
+            options = [.fullTransmission, .broadcastReceiver]
+            dictionary = [
+                messageTextKey: message.messageBody,
+                peerNameKey: currentUser.displayName!,
+                peerTypeKey: DeviceType.ios.rawValue
+            ]
+        } else {
+            receiverUUID = uuid
+            options = [.fullTransmission, .encrypted]
+            // Creation of the dictionary for the message to be sent
+            dictionary = [messageTextKey: message.messageBody,
+                          peerIdKey: currentUser.uid as Any,
+                          peerNameKey: currentUser.displayName!,
+                          peerTypeKey: DeviceType.ios.rawValue,
+                          messageIdKey: message.messageId]
+        }
         
         do {
             try self.transmitter.send(dictionary, toUser: receiverUUID, options: options)
@@ -329,7 +339,16 @@ open class ChatListController: UIViewController, ListAdapterDataSource, ListAdap
         message.mesh = mesh
         message.broadcast = broadcast // If YES received message is broadcast.
         
-        let conversation: String = user
+        let conversation: String
+        if message.broadcast {
+            conversation = driftConversation
+            let deviceType = DeviceType(rawValue: dictionary[peerTypeKey] as! Int)!
+            message.deviceType = deviceType
+            // The deviceName will be processed because it's possible we don't have it yet.
+            processReceivedPeerInfo(dictionary, fromUser: user)
+        } else {
+            conversation = user
+        }
         self.saveMessage(message, forConversation: conversation)
         
         // YES if the related conversation for the user is shown

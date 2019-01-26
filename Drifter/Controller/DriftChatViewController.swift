@@ -17,10 +17,11 @@ public protocol DriftChatViewControllerDelegate: NSObjectProtocol {
     func sendMessage(_ message: Message, toConversation uuid: String)
 }
 
+let driftConversation: String = "broadcast"
+
 open class DriftChatViewController: BaseChatViewController {
     open weak var chatDelegate: DriftChatViewControllerDelegate?
     let currentUser = Auth.auth().currentUser!
-    var userUUID: String = ""
     
     open override func viewWillAppear(_ animated: Bool) {
         
@@ -312,16 +313,20 @@ extension DriftChatViewController: MessageInputBarDelegate {
         for component in inputBar.inputTextView.components {
             if let str = component as? String {
                 let message = Message(messageId: UUID().uuidString, messageBody: str, sentDate: Date())
+                message.broadcast = true
+                message.mesh = true
                 message.kind = .text(str)
                 message.sender = currentSender()
                 insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: userUUID)
+                chatDelegate?.sendMessage(message, toConversation: driftConversation)
             } else if let emoji = component as? String {
                 let message = Message(messageId: UUID().uuidString, messageBody: emoji, sentDate: Date())
+                message.broadcast = true
+                message.mesh = true
                 message.kind = .emoji(emoji)
                 message.sender = currentSender()
                 insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: userUUID)
+                chatDelegate?.sendMessage(message, toConversation: driftConversation)
             }
         }
         inputBar.inputTextView.text = String()
