@@ -8,12 +8,9 @@ target 'Drifter' do
   # Pods for Drifter
   pod 'Firebase'
   pod 'FirebaseUI'
-  pod 'SVProgressHUD'
   pod 'ChameleonFramework'
-  pod 'Fabric'
   pod 'BFTransmitter'
   pod 'TransitionButton'
-  pod 'VegaScrollFlowLayout'
   pod 'MessageKit'
   pod 'MessageInputBar', :git => 'https://github.com/MessageKit/MessageInputBar.git', :branch => 'master'
   pod 'IGListKit', '~> 3.0'

@@ -18,14 +18,10 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string></string>
-	<key>FacebookDisplayName</key>
-	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Drifter uses Bluetooth to seemlessly connect to nearby users without the need for an internet connection!</string>
+	<string>Drifter uses Bluetooth to detect and send messages to nearby users, bypassing the need for internet to chat.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

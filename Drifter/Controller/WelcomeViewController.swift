@@ -7,7 +7,6 @@
 //
 
 import ChameleonFramework
-import Firebase
 import UIKit
 
 class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
@@ -27,12 +26,12 @@ class WelcomeViewController: UIViewController, UINavigationControllerDelegate {
         // Translucent white nav bar with purple font
         let navBar = navigationController?.navigationBar
         navBar?.barTintColor = UIColor.white
-        navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.flatPurpleColorDark()]
+        navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.flatPurpleColorDark()!]
         navBar?.tintColor = UIColor.flatPurpleColorDark()
         navBar?.isTranslucent = true
         navBar?.setValue(true, forKey: "hidesShadow")
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

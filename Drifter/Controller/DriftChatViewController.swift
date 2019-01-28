@@ -17,22 +17,22 @@ public protocol DriftChatViewControllerDelegate: NSObjectProtocol {
     func sendMessage(_ message: Message, toConversation uuid: String)
 }
 
-let driftConversation: String = "broadcast"
+let driftConversation: String = "driftChat"
 
 open class DriftChatViewController: BaseChatViewController {
     open weak var chatDelegate: DriftChatViewControllerDelegate?
     let currentUser = Auth.auth().currentUser!
     
     open override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         if !self.isFirstResponder {
             self.becomeFirstResponder()
         }
+        self.tabBarController?.tabBar.isHidden = true
     }
-    
+
     open override func viewDidLoad() {
         messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
         messagesCollectionView.register(CustomCell.self)

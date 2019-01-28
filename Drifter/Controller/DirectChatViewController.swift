@@ -21,7 +21,7 @@ open class DirectChatViewController: BaseChatViewController {
     open weak var chatDelegate: DirectChatViewControllerDelegate?
     let currentUser = Auth.auth().currentUser!
     var userUUID: String = ""
-    
+
     open override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
     }
