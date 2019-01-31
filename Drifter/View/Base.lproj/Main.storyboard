@@ -89,7 +89,7 @@
             <objects>
                 <collectionViewController title="Nearby Peers List" id="zW3-3s-9l9" customClass="NearbyPeersController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" prefetchingEnabled="NO" id="1Se-TJ-Q3B" customClass="IGListCollectionView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MXC-fL-W9T">
@@ -468,8 +468,8 @@
         <scene sceneID="bxX-yb-4sf">
             <objects>
                 <navigationController title="NearbyPeersNavigationController" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="JDp-Lp-7PN" customClass="NavigationController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" image="ic_map_marker" selectedImage="ic_map_marker" id="vgV-ol-K6J">
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                    <tabBarItem key="tabBarItem" title="" image="nearby" selectedImage="nearby" id="vgV-ol-K6J">
+                        <inset key="imageInsets" minX="0.0" minY="12" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" red="0.42526420950889587" green="0.18710112571716309" blue="0.86276936531066895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -491,13 +491,12 @@
             <objects>
                 <tabBarController storyboardIdentifier="MainTabBarController" title="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcm-2O-QVA" customClass="MainTabBarController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translucent="NO" itemPositioning="centered" id="mui-vQ-oXd">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" shadowImage="nil" itemPositioning="centered" id="mui-vQ-oXd">
+                        <rect key="frame" x="0.0" y="4.5" width="1000" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="0.42526420950889587" green="0.18710112571716309" blue="0.86276936531066895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.42526420950889587" green="0.18710112571716309" blue="0.86276936531066895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.39221680164337158" green="0.20230120420455933" blue="0.83145517110824585" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="uCQ-Rw-cfM" kind="relationship" relationship="viewControllers" id="WvZ-n1-xct"/>
@@ -532,8 +531,8 @@
         <scene sceneID="sTD-SS-1aq">
             <objects>
                 <navigationController title="ContactListNavigationController" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="uCQ-Rw-cfM" customClass="NavigationController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" image="userIcon" selectedImage="userIcon" id="s65-qI-8Yu">
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                    <tabBarItem key="tabBarItem" title="" image="speech_buble" selectedImage="speech_buble" id="s65-qI-8Yu">
+                        <inset key="imageInsets" minX="0.0" minY="12" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" red="0.42526420950889587" green="0.18710112571716309" blue="0.86276936531066895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -555,7 +554,7 @@
             <objects>
                 <collectionViewController title="Contact List" id="cDJ-9i-gnq" customClass="ContactListController" customModule="Drifter" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" prefetchingEnabled="NO" id="iEX-tj-D9b" customClass="IGListCollectionView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D9C-26-LwO">
@@ -579,7 +578,8 @@
     <resources>
         <image name="backArrowPurple" width="66.666664123535156" height="66.666664123535156"/>
         <image name="drifterBackground" width="414" height="896"/>
-        <image name="ic_map_marker" width="48" height="48"/>
-        <image name="userIcon" width="50" height="50"/>
+        <image name="nearby" width="30" height="30"/>
+        <image name="nil" width="16" height="16"/>
+        <image name="speech_buble" width="30" height="30"/>
     </resources>
 </document>

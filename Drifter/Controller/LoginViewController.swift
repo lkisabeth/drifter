@@ -27,7 +27,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
-        logInButton.backgroundColor = UIColor.primaryButtonColor
+        logInButton.backgroundColor = UIColor.primaryColor
         logInButton.setTitleColor(.white, for: .normal)
         logInButton.setTitle("Log In", for: .normal)
         logInButton.cornerRadius = 25

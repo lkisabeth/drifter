@@ -9,41 +9,33 @@
 import UIKit
 
 final class NavigationController: UINavigationController {
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return viewControllers.last?.preferredStatusBarStyle ?? .lightContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isTranslucent = false
-        navigationBar.tintColor = .white
-        navigationBar.barTintColor = .primaryColor
-        navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationBar.isTranslucent = true
+        navigationBar.tintColor = .primaryColor
+        navigationBar.barTintColor = .white
+        navigationBar.installBlurEffect()
+        navigationBar.titleTextAttributes = [.foregroundColor: UIColor.primaryColor]
         if #available(iOS 11.0, *) {
-            navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+            navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.primaryColor]
         }
         navigationBar.shadowImage = UIImage()
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        view.backgroundColor = .primaryColor
     }
-    
-    func setAppearanceStyle(to style: UIStatusBarStyle) {
-        if style == .default {
-            navigationBar.shadowImage = UIImage()
-            navigationBar.barTintColor = .primaryColor
-            navigationBar.tintColor = .white
-            navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-            if #available(iOS 11.0, *) {
-                navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            }
-        } else if style == .lightContent {
-            navigationBar.shadowImage = nil
-            navigationBar.barTintColor = .white
-            navigationBar.tintColor = UIColor(red: 0, green: 0.5, blue: 1, alpha: 1)
-            navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
-            if #available(iOS 11.0, *) {
-                navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-            }
-        }
+}
+
+extension UINavigationBar {
+    func installBlurEffect() {
+        isTranslucent = true
+        setBackgroundImage(UIImage(), for: .default)
+        let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        var blurFrame = bounds
+        blurFrame.size.height += statusBarHeight
+        blurFrame.origin.y -= statusBarHeight
+        let blurView  = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurView.isUserInteractionEnabled = false
+        blurView.frame = blurFrame
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(blurView)
+        blurView.layer.zPosition = -1
     }
 }

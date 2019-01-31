@@ -6,12 +6,12 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import BFTransmitter
 import Firebase
 import MessageKit
 import TransitionButton
 import UIKit
 import IGListKit
+import Hype
 
 private var peersFile: String = "peersFile"
 private var messageTextKey: String = "message_text"
@@ -20,66 +20,164 @@ private var peerIdKey: String = "peer_id"
 private var peerTypeKey: String = "peer_type"
 private var messageIdKey: String = "message_id"
 
-open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate, NearbyPeersSectionControllerDelegate, BFTransmitterDelegate, DirectChatViewControllerDelegate, DriftChatViewControllerDelegate {
-    
-    fileprivate var openUUID: String = ""
-    fileprivate var openStateOnline: Bool = true
-    fileprivate var transmitter: BFTransmitter
-    fileprivate var peerNamesDictionary: NSMutableDictionary
-    fileprivate var onlinePeers: [Peer]
-    fileprivate weak var directChatController: DirectChatViewController?
-    fileprivate weak var driftChatController: DriftChatViewController?
+open class NearbyPeersController: UIViewController, HYPStateObserver, HYPNetworkObserver, HYPMessageObserver, ListAdapterDataSource, NearbyPeersSectionControllerDelegate {
+
+    var peers = [String: Peer]()
     var currentUser = Auth.auth().currentUser!
+    var announcement: String = ""
     
     var refreshControl: UIRefreshControl?
     
-    public required init?(coder aDecoder: NSCoder) {
-        // Transmitter initialization
-        BFTransmitter.setLogLevel(BFLogLevel.trace)
-        self.transmitter = BFTransmitter(apiKey: "ed18b2d0-8a19-4ad6-9dce-311b66b13d99")
-        print(self.transmitter as Any)
-        self.peerNamesDictionary = NSMutableDictionary()
-        self.onlinePeers = [Peer]()
-        super.init(coder: aDecoder)
-        print(self.transmitter as Any)
-        self.transmitter.delegate = self
-        self.transmitter.isBackgroundModeEnabled = true
-        // Load names of previously connected peers
-        self.loadPeers()
-    }
-    
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        adapter.performUpdates(animated: true, completion: nil)
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         _ = adapter
-        if #available(iOS 9.0, *) {
-            adapter.moveDelegate = self
-        }
         
-        title = "Nearby"
+        self.announcement = (currentUser.displayName! as String)
+
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        navigationController?.navigationBar.topItem?.title = "Nearby People"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NearbyPeersController.savePeers),
                                                name: UIApplication.didEnterBackgroundNotification,
                                                object: nil)
         let logOutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.logOut(_:)))
         navigationItem.leftBarButtonItem = logOutButton
-        
-        print(self.transmitter as Any)
-        
         addRefreshControl()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.transmitter.start()
-        }
-        
-        let driftChat = Peer(identifier: "driftChat", displayName: "Drift Chat")
-        self.onlinePeers.append(driftChat)
-        adapter.performUpdates(animated: true, completion: nil)
+
+        requestHypeToStart()
     }
     
+    func requestHypeToStart() {
+        HYP.add(self as HYPStateObserver)
+        HYP.add(self as HYPNetworkObserver)
+        HYP.add(self as HYPMessageObserver)
+        
+        HYP.setAnnouncement(self.announcement.data(using: .utf8))
+        
+        HYP.setAppIdentifier("e76e4743")
+        HYP.start()
+    }
+    
+    public func hypeDidRequestAccessToken(withUserIdentifier userIdentifier: UInt) -> String! {
+        return "86c06c56d193c7be"
+    }
+    
+    public func hypeDidStart() {
+        NSLog("Hype started!")
+    }
+    
+    public func hypeDidStopWithError(_ error: HYPError!) {
+        let description: String! = error == nil ? "" : error.description
+        NSLog("Hype stopped [%@]", description)
+    }
+    
+    public func hypeDidFailStartingWithError(_ error: HYPError!) {
+        NSLog("Hype failed starting [%@]", error.description)
+        
+        let errorMessage : String = "Description: " + (error.description as String) + "\nReason:" + (error.reason as String)  + "\nSuggestion:" + (error.suggestion as String)
+        let alert = UIAlertController(title: "Hype failed starting", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    public func hypeDidBecomeReady() {
+        NSLog("Hype is ready")
+        
+        // We're here due to a failed start request, try again..
+        requestHypeToStart()
+    }
+    
+    private func hypeDidChangeState() {
+        NSLog("Hype state changed to \(HYP.state().rawValue) (Idle=0, Starting=1, Running=2, Stopping=3")
+    }
+
+    func shouldResolveInstance(_ instance: HYPInstance!) -> Bool {
+        // This method can be used to decide whether an instance is interesting
+        return true
+    }
+    
+    public func hypeDidFind(_ instance: HYPInstance!) {
+        NSLog("Hype found instance: [%@]", instance.stringIdentifier)
+        
+        // Resolve instances that matter
+        if shouldResolveInstance(instance) {
+            HYP.resolve(instance)
+        }
+    }
+    
+    public func hypeDidLose(_ instance: HYPInstance!, error: HYPError!) {
+        DispatchQueue.main.async {
+            let description: String! = error == nil ? "" : error.description
+            NSLog("Hype Lost instance: %@ [%@]", instance.stringIdentifier, description)
+            
+            // Clean up
+            self.removeFromResolvedInstancesDict(instance)
+        }
+    }
+
+    public func hypeDidResolve(_ instance: HYPInstance!) {
+        NSLog("Hype resolved instance: [%@]", instance.stringIdentifier)
+        
+        // This device is now capable of communicating
+        addToResolvedInstancesDict(instance)
+    }
+    
+    public func hypeDidFailResolving(_ instance: HYPInstance!, error: HYPError!) {
+        let description:String! = error == nil ? "" : error.description
+        NSLog("Hype failed resolving instance: %@ [%@]", instance.stringIdentifier, description)
+    }
+    
+    public func hypeDidReceive(_ message: HYPMessage!, from fromInstance: HYPInstance!) {
+        DispatchQueue.main.async {
+            NSLog("Hype got a message from: [%@]", fromInstance.stringIdentifier)
+            
+            let peer = self.peers[fromInstance.stringIdentifier]
+            
+            // Storing the message triggers a reload update in the chat view controller
+            peer?.add(message, isMessageReceived: true)
+
+            self.adapter.performUpdates(animated: true, completion: nil)
+        }
+    }
+    
+    public func hypeDidFailSendingMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, error: HYPError!) {
+        NSLog("Hype failed to send message: %@ [%@]", UInt(messageInfo.identifier), error.description)
+    }
+    
+    private func hypeDidSendMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
+        NSLog("Hype is sending a message: \(progress)")
+    }
+    
+    private func hypeDidDeliverMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
+        
+        NSLog("Hype delivered a message: \(progress)")
+    }
+    
+    func addToResolvedInstancesDict(_ instance: HYPInstance) {
+        DispatchQueue.main.async {
+            self.peers.updateValue(Peer (instance: instance), forKey: instance.stringIdentifier)
+            
+            // Reloading the table reflects the change
+            self.adapter.performUpdates(animated: true, completion: nil)
+        }
+    }
+    
+    func removeFromResolvedInstancesDict(_ instance: HYPInstance) {
+        DispatchQueue.main.async {
+            self.peers.removeValue(forKey: instance.stringIdentifier)
+            
+            // Reloading the table reflects the change
+            self.adapter.performUpdates(animated: true, completion: nil)
+        }
+    }
+
     // Setup for IGListKit (data driven collection view)
     @IBOutlet weak var collectionView: UICollectionView!
     lazy var adapter: ListAdapter =  {
@@ -93,45 +191,21 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
     }()
     
     public func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return onlinePeers
+        var diffablePeers = [ListDiffable]()
+        for peer in peers {
+            diffablePeers.append(peer.value)
+        }
+        return diffablePeers
     }
     
     public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        let sectionController = NearbyPeersSectionController(isReorderable: true)
+        let sectionController = NearbyPeersSectionController(isReorderable: false)
         sectionController.delegate = self
         return sectionController
     }
     
     public func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
-    }
-    
-    // MARK: - Interactive Reordering
-    @available(iOS 9.0, *)
-    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
-        switch gesture.state {
-        case .began:
-            let touchLocation = gesture.location(in: self.collectionView)
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: touchLocation) else {
-                break
-            }
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            if let view = gesture.view {
-                let position = gesture.location(in: view)
-                collectionView.updateInteractiveMovementTargetPosition(position)
-            }
-        case .ended:
-            collectionView.endInteractiveMovement()
-        default:
-            collectionView.cancelInteractiveMovement()
-        }
-    }
-    
-    // MARK: - ListAdapterMoveDelegate
-    public func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
-        guard let objects = objects as? [Peer] else { return }
-        onlinePeers = objects
     }
     
     func addRefreshControl() {
@@ -166,40 +240,24 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
     
     func didSelect(_ object: Any?) {
         let peer = object as! Peer
-        if peer.identifier == "driftChat" {
-            let driftChatController = DriftChatViewController()
-            
-            navigationController?.pushViewController(driftChatController, animated: true)
-            let driftMessages = self.loadMessagesForConversation(driftConversation)
-            for message in driftMessages {
-                message.kind = .text(message.messageBody)
-                message.sender = Sender(id: message.senderId, displayName: message.displayName)
-                print(message.sender)
-            }
-            driftChatController.messages = driftMessages
-            driftChatController.chatDelegate = self
-            self.driftChatController = driftChatController
-        } else {
-            self.openUUID = peer.identifier
-            let directChatController = DirectChatViewController()
-            
-            navigationController?.pushViewController(directChatController, animated: true)
-            let directMessages = self.loadMessagesForConversation(openUUID)
-            for message in directMessages {
-                message.kind = .text(message.messageBody)
-                message.sender = Sender(id: message.senderId, displayName: message.displayName)
-                print(message.sender)
-            }
-            directChatController.messages = directMessages
-            directChatController.userUUID = self.openUUID
-            directChatController.chatDelegate = self
-            self.directChatController = directChatController
+        let vc = DirectChatViewController()
+
+        navigationController?.pushViewController(vc, animated: true)
+        print(String(peer.instance.stringIdentifier))
+        print(String(data: peer.instance.announcement, encoding: .utf8)!)
+        vc.peer = peer
+        for message in peer.messages {
+            let mKitMessage = Message()
+            mKitMessage.kind = .text(String(data: message.data, encoding: .utf8)!)
+            mKitMessage.sender = Sender(id: String(peer.instance.stringIdentifier), displayName: String(data: peer.instance.announcement, encoding: .utf8)!)
+            print(mKitMessage.sender)
+            vc.messages.append(mKitMessage)
         }
     }
     
     // MARK: ChatViewControllerDelegate
     
-    open func sendMessage(_ message: Message, toConversation uuid: String) {
+    /* open func sendMessage(_ message: Message, toConversation uuid: String) {
         var dictionary: Dictionary<String, Any>
         var receiverUUID: String?
         var options: BFSendingOption
@@ -238,36 +296,6 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
         self.saveMessage(message, forConversation: uuid)
     }
     
-    // MARK: BFTransmitterDelegate
-    
-    public func transmitter(_ transmitter: BFTransmitter, meshDidAddPacket packetID: String) {
-        // Packet added to mesh
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didReachDestinationForPacket packetID: String) {
-        // Mesh packet reached destiny (no always invoked)
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, meshDidStartProcessForPacket packetID: String) {
-        // A message entered in the mesh process.
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didSendDirectPacket packetID: String) {
-        // A direct message was sent
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didFailForPacket packetID: String, error: Error?) {
-        // A direct message transmission failed.
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, meshDidDiscardPackets packetIDs: [String]) {
-        // A mesh message was discared and won't still be transmitted.
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, meshDidRejectPacketBySize packetID: String) {
-        print("The packet \(packetID) was rejected from mesh because it exceeded the limit size.")
-    }
-    
     public func transmitter(_ transmitter: BFTransmitter, didReceive dictionary: [String: Any]?, with data: Data?, fromUser user: String, packetID: String, broadcast: Bool, mesh: Bool) {
         // A dictionary was received by BFTransmitter.
         if dictionary?[messageTextKey] != nil {
@@ -280,25 +308,8 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
         }
     }
     
-    public func transmitter(_ transmitter: BFTransmitter, didDetectConnectionWithUser user: String) {
-        // A connection was detected (no necessarily secure)
-    }
-    
     public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
         self.discardUUID(user)
-        adapter.performUpdates(animated: true, completion: nil)
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didFailAtStartWithError error: Error) {
-        print("An error occurred at start: \(error.localizedDescription)")
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didOccur event: BFEvent, description: String) {
-        print("Event reported: \(description)")
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, shouldConnectSecurelyWithUser user: String) -> Bool {
-        return true // if true establish connection with encryption capacities.
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectSecureConnectionWithUser user: String) {
@@ -315,130 +326,14 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
         
         self.discardUUID(user)
         adapter.performUpdates(animated: true, completion: nil)
-    }
-    
-    // MARK: Name and message utils
-    
-    func processName(forUser user: String) {
-        // If there's not a name a temporary name is assigned
-        // meanwhile the real name is received.
-        
-        if self.peerNamesDictionary[user] == nil {
-            let tmpName = "Id: \((user as NSString).substring(to: 5))"
-            let peerInfo = ["name": tmpName as Any,
-                            "type": DeviceType.undefined.rawValue]
-            self.peerNamesDictionary[user] = peerInfo
-        }
-        
-        // In case the other user don't have our devicename,
-        // this is sent as an initial message.
-        sendDeviceNameToUser(user)
-    }
-    
-    func sendDeviceNameToUser(_ user: String) {
-        let dictionary = [peerNameKey: currentUser.displayName as Any,
-                          peerIdKey: currentUser.uid as Any,
-                          peerTypeKey: DeviceType.ios.rawValue]
-        let options: BFSendingOption = [.directTransmission, .encrypted]
-        
-        do {
-            try self.transmitter.send(dictionary, toUser: user, options: options)
-        } catch let err as NSError {
-            print("Error: \(err)")
-        }
-    }
-    
-    func processReceivedMessage(_ dictionary: Dictionary<String, Any>, fromUser user: String, byMesh mesh: Bool, asBroadcast broadcast: Bool) {
-        // Processing a new message
-        let text: String = dictionary[messageTextKey] as! String
-        let messageId: String = dictionary[messageIdKey] as! String
-        let peerId: String = dictionary[peerIdKey] as! String
-        let peerName: String = dictionary[peerNameKey] as! String
-        let message = Message(messageId: messageId, messageBody: text, sentDate: Date())
-        message.senderId = peerId
-        message.displayName = peerName
-        message.sender = Sender(id: peerId, displayName: peerName)
-        message.kind = .text(text)
-        message.received = true
-        message.mesh = mesh
-        message.broadcast = broadcast // If YES received message is broadcast.
-        
-        let conversation: String
-        if message.broadcast {
-            conversation = driftConversation
-            let deviceType = DeviceType(rawValue: dictionary[peerTypeKey] as! Int)!
-            message.deviceType = deviceType
-            // The deviceName will be processed because it's possible we don't have it yet.
-            processReceivedPeerInfo(dictionary, fromUser: user)
-        } else {
-            conversation = user
-        }
-        self.saveMessage(message, forConversation: conversation)
-        
-        let showingDriftLobby = message.broadcast && self.driftChatController != nil
-        if showingDriftLobby {
-            self.driftChatController!.insertMessage(message)
-        }
-        // YES if the related conversation for the user is shown
-        let showingSameUser = self.directChatController != nil && self.directChatController?.userUUID == user && !message.broadcast
-        if showingSameUser {
-            // If the related conversation to the message is being shown.
-            // update messages.
-            self.directChatController!.insertMessage(message)
-        }
-    }
-    
-    func processReceivedPeerInfo(_ peerInfo: Dictionary<String, Any>, fromUser user: String) {
-        let existingDeviceName = (self.peerNamesDictionary[user] as! Dictionary<String, Any>)["name"] as! String
-        let receivedDeviceName = peerInfo[peerNameKey] as! String
-        let receivedDeviceType = peerInfo[peerTypeKey] as! Int
-        
-        if receivedDeviceName != existingDeviceName {
-            let name = "\(receivedDeviceName) (\((user as NSString).substring(to: 5)))"
-            let userInfo: Dictionary<String, Any> = ["name": name,
-                                                     "type": receivedDeviceType]
-            self.peerNamesDictionary.setValue(userInfo, forKey: user)
-            let peer = Peer(identifier: user, displayName: peerInfo[peerNameKey] as! String)
-            self.onlinePeers.append(peer)
-            adapter.performUpdates(animated: true, completion: nil)
-        }
-    }
+    } */
     
     // MARK: Clumsy data management
-    
-    func discardUUID(_ uuid: String) {
-        if let peerToBeRemoved = self.onlinePeers.firstIndex(where: { $0.identifier == uuid }) {
-            self.onlinePeers.remove(at: peerToBeRemoved)
-        }
-        adapter.performUpdates(animated: true, completion: nil)
-    }
-    
-    func saveMessage(_ message: Message, forConversation conversation: String) {
-        let filePath = self.fullPathForFile(conversation)
-        var messages: [Message] = self.loadMessagesForConversation(conversation)
-        messages.append(message)
-        let coder = NSKeyedArchiver(requiringSecureCoding: true)
-        coder.encode(messages, forKey: NSKeyedArchiveRootObjectKey)
-        let data = coder.encodedData
-        try? data.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
-    }
-    
-    func loadMessagesForConversation(_ conversation: String) -> [Message] {
-        let filePath = self.fullPathForFile(conversation)
-        let data: Data? = try? Data(contentsOf: URL(fileURLWithPath: filePath))
-        let loadedMessages: [Message]
-        if data != nil {
-            loadedMessages = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! [Message]
-        } else {
-            loadedMessages = [Message]()
-        }
-        return loadedMessages
-    }
     
     @objc func savePeers() {
         let filePath = self.fullPathForFile(peersFile)
         let coder = NSKeyedArchiver(requiringSecureCoding: true)
-        coder.encode(self.peerNamesDictionary, forKey: NSKeyedArchiveRootObjectKey)
+        coder.encode(self.peers, forKey: NSKeyedArchiveRootObjectKey)
         let data = coder.encodedData
         try? data.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
     }
@@ -447,9 +342,9 @@ open class NearbyPeersController: UIViewController, ListAdapterDataSource, ListA
         let filePath = self.fullPathForFile(peersFile)
         let data: Data? = try? Data(contentsOf: URL(fileURLWithPath: filePath))
         if data != nil {
-            self.peerNamesDictionary = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! NSMutableDictionary
+            self.peers = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data!) as! [String: Peer]
         } else {
-            self.peerNamesDictionary = NSMutableDictionary()
+            self.peers = [String: Peer]()
         }
     }
     

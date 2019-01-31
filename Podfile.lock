@@ -1,5 +1,4 @@
 PODS:
-  - BFTransmitter (0.1.32)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -194,7 +193,6 @@ PODS:
     - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
-  - BFTransmitter
   - ChameleonFramework
   - Firebase
   - FirebaseUI
@@ -206,7 +204,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - BFTransmitter
     - Bolts
     - BoringSSL-GRPC
     - ChameleonFramework
@@ -251,7 +248,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/MessageKit/MessageInputBar.git
 
 SPEC CHECKSUMS:
-  BFTransmitter: e1c9c1f504dfb138502a9a8a9f17c1ebf85a8c15
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BoringSSL-GRPC: 2a230d9cd93e7ce39916044f645cebb31f37dde6
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
@@ -286,6 +282,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 026342680a9f469a055657fbf7506d644cc3de74
+PODFILE CHECKSUM: afbb69d8904d656f9f54579d8954830c0a7302f6
 
 COCOAPODS: 1.5.3

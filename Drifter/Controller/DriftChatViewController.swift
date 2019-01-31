@@ -5,8 +5,7 @@
 //  Created by Lucas Kisabeth on 1/22/19.
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
-
-import BFTransmitter
+/*
 import Firebase
 import MapKit
 import MessageInputBar
@@ -333,3 +332,4 @@ extension DriftChatViewController: MessageInputBarDelegate {
         messagesCollectionView.scrollToBottom(animated: true)
     }
 }
+*/

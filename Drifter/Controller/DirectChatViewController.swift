@@ -6,25 +6,32 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import BFTransmitter
 import Firebase
 import MapKit
 import MessageInputBar
 import MessageKit
 import UIKit
+import Hype
 
-public protocol DirectChatViewControllerDelegate: NSObjectProtocol {
-    func sendMessage(_ message: Message, toConversation uuid: String)
-}
-
-open class DirectChatViewController: BaseChatViewController {
-    open weak var chatDelegate: DirectChatViewControllerDelegate?
+open class DirectChatViewController: BaseChatViewController, PeerDelegate {
     let currentUser = Auth.auth().currentUser!
-    var userUUID: String = ""
+
+    private var _peer: Peer?
+    var peer: Peer? {
+        set {
+            _peer = newValue
+            _peer?.delegate = self
+        }
+        get {
+            return _peer
+        }
+    }
 
     open override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
+        super.viewWillAppear(animated)
+        self.navigationItem.largeTitleDisplayMode = .never
     }
+
     open override func viewDidLoad() {
         messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
         messagesCollectionView.register(CustomCell.self)
@@ -40,11 +47,19 @@ open class DirectChatViewController: BaseChatViewController {
         super.viewDidLoad()
 
         messagesCollectionView.scrollToBottom(animated: true)
-        updateTitleView(title: "Direct Chat", subtitle: "Testing")
+        print(String(data: (peer?.instance.announcement)!, encoding: .utf8)! + " should be title")
+        title = String(data: (peer?.instance.announcement)!, encoding: .utf8)!
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        // Sets all messages as read
+        peer?.lastReadIndex = peer!.allMessages().count
+        tabBarController?.tabBar.isHidden = true
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func configureMessageCollectionView() {
@@ -84,7 +99,7 @@ open class DirectChatViewController: BaseChatViewController {
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.imageView?.layer.cornerRadius = 16
         messageInputBar.textViewPadding.right = -38
-        let charCountButton = InputBarButtonItem()
+        /* let charCountButton = InputBarButtonItem()
             .configure {
                 $0.title = "0/280"
                 $0.contentHorizontalAlignment = .right
@@ -103,7 +118,7 @@ open class DirectChatViewController: BaseChatViewController {
             }
         let bottomItems = [makeButton(named: "ic_at"), makeButton(named: "ic_hashtag"), makeButton(named: "ic_library"), .flexibleSpace, charCountButton]
         messageInputBar.textViewPadding.bottom = 8
-        messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false)
+        messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false) */
         
         // This just adds some more flare
         messageInputBar.sendButton
@@ -119,6 +134,24 @@ open class DirectChatViewController: BaseChatViewController {
     }
     
     // MARK: - Helpers
+    
+    func didAdd(sender: Peer, message: HYPMessage, isMessageReceived: Bool) {
+        let mKitMessage = convertToMKitMessage(message, isMessageReceived)
+        insertMessage(mKitMessage)
+    }
+    
+    func convertToMKitMessage(_ message: HYPMessage, _ received: Bool) -> Message {
+        let mKitMessage = Message()
+        mKitMessage.kind = .text(String(data: message.data!, encoding: .utf8)!)
+        if received {
+            mKitMessage.sender = Sender(id: String((peer?.instance.stringIdentifier)!), displayName: String(data: (peer?.instance.announcement)!, encoding: .utf8)!)
+        } else {
+            mKitMessage.sender = Sender(id: currentUser.uid, displayName: currentUser.displayName!)
+        }
+        mKitMessage.messageId = UUID().uuidString
+        mKitMessage.sentDate = Date()
+        return mKitMessage
+    }
     
     func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {
         return indexPath.section % 3 == 0 && !isPreviousMessageSameSender(at: indexPath)
@@ -308,17 +341,9 @@ extension DirectChatViewController: MessageInputBarDelegate {
     public func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         for component in inputBar.inputTextView.components {
             if let str = component as? String {
-                let message = Message(messageId: UUID().uuidString, messageBody: str, sentDate: Date())
-                message.kind = .text(str)
-                message.sender = currentSender()
-                insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: userUUID)
-            } else if let emoji = component as? String {
-                let message = Message(messageId: UUID().uuidString, messageBody: emoji, sentDate: Date())
-                message.kind = .emoji(emoji)
-                message.sender = currentSender()
-                insertMessage(message)
-                chatDelegate?.sendMessage(message, toConversation: userUUID)
+                let data: Data? = str.data(using: String.Encoding.utf8)
+                let message: HYPMessage? = HYP.send(data, to: peer?.instance)
+                peer?.add(message!, isMessageReceived: false)
             }
         }
         inputBar.inputTextView.text = String()

@@ -77,10 +77,8 @@ class PeerCell: UICollectionViewCell {
 }
 
 extension PeerCell: ListBindable {
-    
     func bindViewModel(_ viewModel: Any) {
         guard let viewModel = viewModel as? String else { return }
         label.text = viewModel
     }
-    
 }

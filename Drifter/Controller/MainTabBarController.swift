@@ -25,6 +25,9 @@ class MainTabBarController: SwipeableTabBarController {
         
         /// Set swipe to only work when strictly horizontal.
         setDiagonalSwipe(enabled: false)
+        
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

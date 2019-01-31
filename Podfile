@@ -9,7 +9,6 @@ target 'Drifter' do
   pod 'Firebase'
   pod 'FirebaseUI'
   pod 'ChameleonFramework'
-  pod 'BFTransmitter'
   pod 'TransitionButton'
   pod 'MessageKit'
   pod 'MessageInputBar', :git => 'https://github.com/MessageKit/MessageInputBar.git', :branch => 'master'

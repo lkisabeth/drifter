@@ -14,6 +14,8 @@
 		07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9721E7F9B400A8FDE8 /* StoreKit.framework */; };
 		07017B9A21E7F9FC00A8FDE8 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */; };
 		071C6FF921ED89C200F45790 /* CircleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071C6FF821ED89C200F45790 /* CircleSegue.swift */; };
+		07435C8821FF928B00EC5351 /* Hype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07435C8721FF928B00EC5351 /* Hype.framework */; };
+		07435C8921FF928B00EC5351 /* Hype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07435C8721FF928B00EC5351 /* Hype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		074461A421F77EE4006401DE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A321F77EE4006401DE /* OnboardingViewController.swift */; };
 		074461A621F78A19006401DE /* DriftChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A521F78A19006401DE /* DriftChatViewController.swift */; };
 		074461A821F7DE72006401DE /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074461A721F7DE72006401DE /* ContactListViewController.swift */; };
@@ -40,6 +42,7 @@
 		07DF102821E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
 		07DF102921E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
 		07DF102A21E6FE3100E0E518 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */; };
+		07DF584F22025B1A0077FAFC /* PeerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF584E22025B1A0077FAFC /* PeerDelegate.swift */; };
 		07E9F2E721EA63340040DC4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */; };
 		07F9A1DC21EF896A00917650 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9A1DB21EF896A00917650 /* Peer.swift */; };
 		07F9A1E221EF8A4700917650 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9A1E121EF8A4700917650 /* UIColor+Extensions.swift */; };
@@ -65,6 +68,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		07435C8321FF920A00EC5351 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07435C8921FF928B00EC5351 /* Hype.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		07017B8E21E7DBBF00A8FDE8 /* NearbyPeersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPeersController.swift; sourceTree = "<group>"; };
 		07017B9021E7F96600A8FDE8 /* Drifter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Drifter.entitlements; sourceTree = "<group>"; };
@@ -74,6 +91,7 @@
 		07017B9721E7F9B400A8FDE8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		07017B9921E7F9FC00A8FDE8 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		071C6FF821ED89C200F45790 /* CircleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSegue.swift; sourceTree = "<group>"; };
+		07435C8721FF928B00EC5351 /* Hype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Hype.framework; sourceTree = "<group>"; };
 		074461A321F77EE4006401DE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		074461A521F78A19006401DE /* DriftChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftChatViewController.swift; sourceTree = "<group>"; };
 		074461A721F7DE72006401DE /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +122,7 @@
 		07C8230721E6F97D001A2832 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		07C8230B21E6F9B8001A2832 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07DF102721E6FE3100E0E518 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		07DF584E22025B1A0077FAFC /* PeerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerDelegate.swift; sourceTree = "<group>"; };
 		07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07F9A1DB21EF896A00917650 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		07F9A1E121EF8A4700917650 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -126,6 +145,7 @@
 				07017B9A21E7F9FC00A8FDE8 /* AuthenticationServices.framework in Frameworks */,
 				07017B9221E7F98200A8FDE8 /* ExternalAccessory.framework in Frameworks */,
 				07017B9421E7F99600A8FDE8 /* NetworkExtension.framework in Frameworks */,
+				07435C8821FF928B00EC5351 /* Hype.framework in Frameworks */,
 				07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */,
 				07017B9621E7F9B100A8FDE8 /* AudioToolbox.framework in Frameworks */,
 				59752FB240AE65ADB2EECF80 /* Pods_Drifter.framework in Frameworks */,
@@ -195,6 +215,7 @@
 				07C822C721E6F546001A2832 /* Drifter */,
 				07C822DE21E6F547001A2832 /* DrifterTests */,
 				07C822E921E6F547001A2832 /* DrifterUITests */,
+				07435C8721FF928B00EC5351 /* Hype.framework */,
 				07C822C621E6F546001A2832 /* Products */,
 				051D829B459AE114A46D033B /* Frameworks */,
 				7E4CD45DBF33BCE23B5FA309 /* Pods */,
@@ -262,6 +283,7 @@
 			children = (
 				07C8230121E6F8D7001A2832 /* Message.swift */,
 				07F9A1DB21EF896A00917650 /* Peer.swift */,
+				07DF584E22025B1A0077FAFC /* PeerDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -332,6 +354,7 @@
 				07C822C321E6F546001A2832 /* Resources */,
 				5BFAFC3B1BB3034829C5A000 /* [CP] Embed Pods Frameworks */,
 				E0A3C20D24C97AD288E55421 /* [CP] Copy Pods Resources */,
+				07435C8321FF920A00EC5351 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -539,7 +562,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks.sh",
-				"${PODS_ROOT}/BFTransmitter/BFTransmitter.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
@@ -566,7 +588,6 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BFTransmitter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
@@ -691,6 +712,7 @@
 				074461A421F77EE4006401DE /* OnboardingViewController.swift in Sources */,
 				07C8230C21E6F9B8001A2832 /* WelcomeViewController.swift in Sources */,
 				07909E5621F0F4C900587DB6 /* UserDefaults+Extensions.swift in Sources */,
+				07DF584F22025B1A0077FAFC /* PeerDelegate.swift in Sources */,
 				07C8230221E6F8D7001A2832 /* Message.swift in Sources */,
 				07909E5821F1396A00587DB6 /* BaseChatViewController.swift in Sources */,
 				07909E5421F0F47800587DB6 /* CustomMessageFlowLayout.swift in Sources */,
@@ -872,9 +894,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lucas Kisabeth (6TPFUDHFJA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Drifter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -896,15 +923,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Drifter/Drifter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lucas Kisabeth (6TPFUDHFJA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PS2ATMB79M;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Drifter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucaskisabeth.Drifter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

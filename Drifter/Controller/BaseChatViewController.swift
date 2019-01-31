@@ -6,18 +6,14 @@
 //  Copyright © 2019 Lucas Kisabeth. All rights reserved.
 //
 
-import BFTransmitter
 import Firebase
 import MessageInputBar
 import MessageKit
 import UIKit
+import Hype
 
 /// A base class for the example controllers
 open class BaseChatViewController: MessagesViewController, MessagesDataSource {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     var messages: [Message] = []
     
     let formatter: DateFormatter = {
