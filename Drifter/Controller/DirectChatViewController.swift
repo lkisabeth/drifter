@@ -45,10 +45,10 @@ open class DirectChatViewController: BaseChatViewController, PeerDelegate {
             layout.textMessageSizeCalculator.outgoingMessageBottomLabelAlignment = .init(textAlignment: .right, textInsets: labelInsets)
         }
         super.viewDidLoad()
+        
+        title = String(data: (peer?.instance.announcement)!, encoding: .utf8)!
 
         messagesCollectionView.scrollToBottom(animated: true)
-        print(String(data: (peer?.instance.announcement)!, encoding: .utf8)! + " should be title")
-        title = String(data: (peer?.instance.announcement)!, encoding: .utf8)!
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -135,22 +135,8 @@ open class DirectChatViewController: BaseChatViewController, PeerDelegate {
     
     // MARK: - Helpers
     
-    func didAdd(sender: Peer, message: HYPMessage, isMessageReceived: Bool) {
-        let mKitMessage = convertToMKitMessage(message, isMessageReceived)
-        insertMessage(mKitMessage)
-    }
-    
-    func convertToMKitMessage(_ message: HYPMessage, _ received: Bool) -> Message {
-        let mKitMessage = Message()
-        mKitMessage.kind = .text(String(data: message.data!, encoding: .utf8)!)
-        if received {
-            mKitMessage.sender = Sender(id: String((peer?.instance.stringIdentifier)!), displayName: String(data: (peer?.instance.announcement)!, encoding: .utf8)!)
-        } else {
-            mKitMessage.sender = Sender(id: currentUser.uid, displayName: currentUser.displayName!)
-        }
-        mKitMessage.messageId = UUID().uuidString
-        mKitMessage.sentDate = Date()
-        return mKitMessage
+    func didAdd(sender: Peer, message: Message, isMessageReceived: Bool) {
+        insertMessage(message)
     }
     
     func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {

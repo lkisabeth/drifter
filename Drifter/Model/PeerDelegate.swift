@@ -10,5 +10,5 @@ import Foundation
 import Hype
 
 protocol PeerDelegate: NSObjectProtocol {
-    func didAdd(sender: Peer, message: HYPMessage, isMessageReceived: Bool)
+    func didAdd(sender: Peer, message: Message, isMessageReceived: Bool)
 }

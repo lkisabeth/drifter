@@ -44,9 +44,6 @@ open class NearbyPeersController: UIViewController, HYPStateObserver, HYPNetwork
         }
         navigationController?.navigationBar.topItem?.title = "Nearby People"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(NearbyPeersController.savePeers),
-                                               name: UIApplication.didEnterBackgroundNotification,
-                                               object: nil)
         let logOutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.logOut(_:)))
         navigationItem.leftBarButtonItem = logOutButton
         addRefreshControl()
@@ -247,87 +244,10 @@ open class NearbyPeersController: UIViewController, HYPStateObserver, HYPNetwork
         print(String(data: peer.instance.announcement, encoding: .utf8)!)
         vc.peer = peer
         for message in peer.messages {
-            let mKitMessage = Message()
-            mKitMessage.kind = .text(String(data: message.data, encoding: .utf8)!)
-            mKitMessage.sender = Sender(id: String(peer.instance.stringIdentifier), displayName: String(data: peer.instance.announcement, encoding: .utf8)!)
-            print(mKitMessage.sender)
-            vc.messages.append(mKitMessage)
+            vc.messages.append(message)
         }
     }
-    
-    // MARK: ChatViewControllerDelegate
-    
-    /* open func sendMessage(_ message: Message, toConversation uuid: String) {
-        var dictionary: Dictionary<String, Any>
-        var receiverUUID: String?
-        var options: BFSendingOption
-        
-        if message.broadcast {
-            receiverUUID = nil
-            options = [.fullTransmission, .broadcastReceiver]
-            dictionary = [
-                messageTextKey: message.messageBody,
-                peerIdKey: currentUser.uid as Any,
-                peerNameKey: currentUser.displayName!,
-                peerTypeKey: DeviceType.ios.rawValue,
-                messageIdKey: message.messageId
-            ]
-        } else {
-            receiverUUID = uuid
-            options = [.fullTransmission, .encrypted]
-            // Creation of the dictionary for the message to be sent
-            dictionary = [messageTextKey: message.messageBody,
-                          peerIdKey: currentUser.uid as Any,
-                          peerNameKey: currentUser.displayName!,
-                          peerTypeKey: DeviceType.ios.rawValue,
-                          messageIdKey: message.messageId
-            ]
-        }
-        
-        do {
-            try self.transmitter.send(dictionary, toUser: receiverUUID, options: options)
-        } catch let err as NSError {
-            print("Error: \(err)")
-        }
-        
-        message.senderId = currentUser.uid
-        message.displayName = currentUser.displayName!
-        // Just persistence management
-        self.saveMessage(message, forConversation: uuid)
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didReceive dictionary: [String: Any]?, with data: Data?, fromUser user: String, packetID: String, broadcast: Bool, mesh: Bool) {
-        // A dictionary was received by BFTransmitter.
-        if dictionary?[messageTextKey] != nil {
-            // If it contains a value for the key messageTextKey it's a message
-            self.processReceivedMessage(dictionary!,
-                                        fromUser: user, byMesh: mesh, asBroadcast: broadcast)
-        } else {
-            // If it doesn't contain the key messageTextKey it's the device name of the other user.
-            self.processReceivedPeerInfo(dictionary!, fromUser: user)
-        }
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
-        self.discardUUID(user)
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, didDetectSecureConnectionWithUser user: String) {
-        // A secure connection was detected,
-        // A secure connection has encryption capabilities.
-        
-        // Check if there's a name saved for this user.
-        self.processName(forUser: user)
-        
-        // Update the collection accord this new connection
-        if self.peerNamesDictionary[user] == nil {
-            self.peerNamesDictionary.setValue("", forKey: user)
-        }
-        
-        self.discardUUID(user)
-        adapter.performUpdates(animated: true, completion: nil)
-    } */
-    
+
     // MARK: Clumsy data management
     
     @objc func savePeers() {
