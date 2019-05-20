@@ -39,7 +39,7 @@ class CircleSegue: UIStoryboardSegue, CAAnimationDelegate {
         if CircleSegue.stack.peek() !== destination {
             CircleSegue.stack.push(vc: source)
         } else {
-            CircleSegue.stack.pop()
+            _ = CircleSegue.stack.pop()
             shouldUnwind = true
         }
         

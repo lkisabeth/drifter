@@ -91,7 +91,7 @@ open class NearbyPeersController: UIViewController, HYPStateObserver, HYPNetwork
         requestHypeToStart()
     }
     
-    private func hypeDidChangeState() {
+    public func hypeDidChangeState() {
         NSLog("Hype state changed to \(HYP.state().rawValue) (Idle=0, Starting=1, Running=2, Stopping=3")
     }
 
@@ -148,11 +148,11 @@ open class NearbyPeersController: UIViewController, HYPStateObserver, HYPNetwork
         NSLog("Hype failed to send message: %@ [%@]", UInt(messageInfo.identifier), error.description)
     }
     
-    private func hypeDidSendMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
+    public func hypeDidSendMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
         NSLog("Hype is sending a message: \(progress)")
     }
     
-    private func hypeDidDeliverMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
+    public func hypeDidDeliverMessage(_ messageInfo: HYPMessageInfo!, to toInstance: HYPInstance!, progress: Float, complete: Bool) {
         
         NSLog("Hype delivered a message: \(progress)")
     }
