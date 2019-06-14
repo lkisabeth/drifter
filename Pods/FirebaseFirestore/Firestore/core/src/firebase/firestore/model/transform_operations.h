@@ -27,6 +27,8 @@
 #import "Firestore/Source/Model/FSTFieldValue.h"
 
 #include "Firestore/core/include/firebase/firestore/timestamp.h"
+#include "Firestore/core/src/firebase/firestore/model/field_value.h"
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 
 namespace firebase {
 namespace firestore {
@@ -44,6 +46,7 @@ class TransformOperation {
     ServerTimestamp,
     ArrayUnion,
     ArrayRemove,
+    Increment,
     Test,  // Purely for test purpose.
   };
 
@@ -67,6 +70,9 @@ class TransformOperation {
   virtual FSTFieldValue* ApplyToRemoteDocument(
       FSTFieldValue* previousValue, FSTFieldValue* transformResult) const = 0;
 
+  /** Returns whether this field transform is idempotent. */
+  virtual bool idempotent() const = 0;
+
   /** Returns whether the two are equal. */
   virtual bool operator==(const TransformOperation& other) const = 0;
 
@@ -83,9 +89,6 @@ class TransformOperation {
 /** Transforms a value into a server-generated timestamp. */
 class ServerTimestampTransform : public TransformOperation {
  public:
-  ~ServerTimestampTransform() override {
-  }
-
   Type type() const override {
     return Type::ServerTimestamp;
   }
@@ -101,6 +104,10 @@ class ServerTimestampTransform : public TransformOperation {
       FSTFieldValue* /* previousValue */,
       FSTFieldValue* transformResult) const override {
     return transformResult;
+  }
+
+  bool idempotent() const override {
+    return true;
   }
 
   bool operator==(const TransformOperation& other) const override {
@@ -136,9 +143,6 @@ class ArrayTransform : public TransformOperation {
       : type_(type), elements_(std::move(elements)) {
   }
 
-  ~ArrayTransform() override {
-  }
-
   Type type() const override {
     return type_;
   }
@@ -160,6 +164,10 @@ class ArrayTransform : public TransformOperation {
 
   const std::vector<FSTFieldValue*>& elements() const {
     return elements_;
+  }
+
+  bool idempotent() const override {
+    return true;
   }
 
   bool operator==(const TransformOperation& other) const override {
@@ -230,6 +238,104 @@ class ArrayTransform : public TransformOperation {
       }
     }
     return [[FSTArrayValue alloc] initWithValueNoCopy:result];
+  }
+};
+
+/**
+ * Implements the backend semantics for locally computed NUMERIC_ADD (increment)
+ * transforms. Converts all field values to longs or doubles and resolves
+ * overflows to LONG_MAX/LONG_MIN.
+ */
+class NumericIncrementTransform : public TransformOperation {
+ public:
+  explicit NumericIncrementTransform(FSTFieldValue* operand)
+      : operand_(operand) {
+    HARD_ASSERT(FieldValue::IsNumber(operand.type));
+  }
+
+  Type type() const override {
+    return Type::Increment;
+  }
+
+  FSTFieldValue* ApplyToLocalView(
+      FSTFieldValue* previousValue,
+      FIRTimestamp* /* localWriteTime */) const override {
+    // Return an integer value only if the previous value and the operand is an
+    // integer.
+    if (previousValue.type == FieldValue::Type::Integer &&
+        operand_.type == FieldValue::Type::Integer) {
+      int64_t sum =
+          SafeIncrement(previousValue.integerValue, operand_.integerValue);
+      return FieldValue::FromInteger(sum).Wrap();
+    } else if (previousValue.type == FieldValue::Type::Integer) {
+      double sum = previousValue.integerValue + OperandAsDouble();
+      return FieldValue::FromDouble(sum).Wrap();
+    } else if (previousValue.type == FieldValue::Type::Double) {
+      double sum = previousValue.doubleValue + OperandAsDouble();
+      return FieldValue::FromDouble(sum).Wrap();
+    } else {
+      // If the existing value is not a number, use the value of the transform
+      // as the new base value.
+      return operand_;
+    }
+  }
+
+  FSTFieldValue* ApplyToRemoteDocument(
+      FSTFieldValue*, FSTFieldValue* transformResult) const override {
+    return transformResult;
+  }
+
+  FSTFieldValue* operand() const {
+    return operand_;
+  }
+
+  bool idempotent() const override {
+    return false;
+  }
+
+  bool operator==(const TransformOperation& other) const override {
+    if (other.type() != type()) {
+      return false;
+    }
+    auto numeric_add = static_cast<const NumericIncrementTransform&>(other);
+    return [operand_ isEqual:numeric_add.operand_];
+  }
+
+  // For Objective-C++ hash; to be removed after migration.
+  // Do NOT use in C++ code.
+  NSUInteger Hash() const override {
+    NSUInteger result = 37;
+    result = 31 * result + [operand_ hash];
+    return result;
+  }
+
+ private:
+  FSTFieldValue* operand_;
+
+  /**
+   * Implements integer addition. Overflows are resolved to LONG_MAX/LONG_MIN.
+   */
+  int64_t SafeIncrement(int64_t x, int64_t y) const {
+    if (x > 0 && y > LONG_MAX - x) {
+      return LONG_MAX;
+    }
+
+    if (x < 0 && y < LONG_MIN - x) {
+      return LONG_MIN;
+    }
+
+    return x + y;
+  }
+
+  double OperandAsDouble() const {
+    if (operand_.type == FieldValue::Type::Double) {
+      return operand_.doubleValue;
+    } else if (operand_.type == FieldValue::Type::Integer) {
+      return operand_.integerValue;
+    } else {
+      HARD_FAIL("Expected 'operand' to be of FSTNumerValue type, but was %s",
+                NSStringFromClass([operand_ class]));
+    }
   }
 };
 

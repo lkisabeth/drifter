@@ -23,6 +23,8 @@
 
 #import <Foundation/Foundation.h>
 
+#include <unordered_map>
+
 #import "Firestore/Protos/objc/firestore/local/Target.pbobjc.h"
 #include "Firestore/core/src/firebase/firestore/local/query_cache.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
@@ -45,11 +47,6 @@ namespace local {
 /** Cached Queries backed by LevelDB. */
 class LevelDbQueryCache : public QueryCache {
  public:
-  /** Enumerator callback type for orphaned documents */
-  typedef void (^OrphanedDocumentEnumerator)(const model::DocumentKey&,
-                                             model::ListenSequenceNumber,
-                                             BOOL*);
-
   /**
    * Retrieves the global singleton metadata row from the given database, if it
    * exists.
@@ -73,11 +70,11 @@ class LevelDbQueryCache : public QueryCache {
 
   FSTQueryData* _Nullable GetTarget(FSTQuery* query) override;
 
-  void EnumerateTargets(TargetEnumerator block) override;
+  void EnumerateTargets(const TargetCallback& callback) override;
 
-  int RemoveTargets(
-      model::ListenSequenceNumber upper_bound,
-      NSDictionary<NSNumber*, FSTQueryData*>* live_targets) override;
+  int RemoveTargets(model::ListenSequenceNumber upper_bound,
+                    const std::unordered_map<model::TargetId, FSTQueryData*>&
+                        live_targets) override;
 
   // Key-related methods
 
@@ -121,7 +118,7 @@ class LevelDbQueryCache : public QueryCache {
   // Non-interface methods
   void Start();
 
-  void EnumerateOrphanedDocuments(OrphanedDocumentEnumerator block);
+  void EnumerateOrphanedDocuments(const OrphanedDocumentCallback& callback);
 
  private:
   void Save(FSTQueryData* query_data);

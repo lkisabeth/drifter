@@ -46,7 +46,7 @@ class MutationResult {
  public:
   MutationResult(
       SnapshotVersion&& version,
-      const std::shared_ptr<const std::vector<FieldValue>>& transform_results)
+      const std::shared_ptr<const std::vector<ObjectValue>>& transform_results)
       : version_(std::move(version)),
         transform_results_(std::move(transform_results)) {
   }
@@ -67,19 +67,19 @@ class MutationResult {
 
   /**
    * The resulting fields returned from the backend after a TransformMutation
-   * has been committed.  Contains one FieldValue for each FieldTransform
+   * has been committed.  Contains one ObjectValue for each FieldTransform
    * that was in the mutation.
    *
    * Will be null if the mutation was not a TransformMutation.
    */
-  const std::shared_ptr<const std::vector<FieldValue>>& transform_results()
+  const std::shared_ptr<const std::vector<ObjectValue>>& transform_results()
       const {
     return transform_results_;
   }
 
  private:
   const SnapshotVersion version_;
-  const std::shared_ptr<const std::vector<FieldValue>> transform_results_;
+  const std::shared_ptr<const std::vector<ObjectValue>> transform_results_;
 };
 
 /**
@@ -127,6 +127,11 @@ class MutationResult {
  */
 class Mutation {
  public:
+  /**
+   * Represents the mutation type. This is used in place of dynamic_cast.
+   */
+  enum class Type { kSet, kPatch, kDelete };
+
   virtual ~Mutation() {
   }
 
@@ -136,6 +141,9 @@ class Mutation {
   const Precondition& precondition() const {
     return precondition_;
   }
+
+  /** The runtime type of this mutation. */
+  virtual Type type() const = 0;
 
   /**
    * Applies this mutation to the given MaybeDocument for the purposes of
@@ -178,6 +186,8 @@ class Mutation {
       const MaybeDocument* base_doc,
       const Timestamp& local_write_time) const = 0;
 
+  friend bool operator==(const Mutation& lhs, const Mutation& rhs);
+
  protected:
   Mutation(DocumentKey&& key, Precondition&& precondition);
 
@@ -185,10 +195,20 @@ class Mutation {
 
   static SnapshotVersion GetPostMutationVersion(const MaybeDocument* maybe_doc);
 
+  virtual bool equal_to(const Mutation& other) const;
+
  private:
   const DocumentKey key_;
   const Precondition precondition_;
 };
+
+inline bool operator==(const Mutation& lhs, const Mutation& rhs) {
+  return lhs.equal_to(rhs);
+}
+
+inline bool operator!=(const Mutation& lhs, const Mutation& rhs) {
+  return !(lhs == rhs);
+}
 
 /**
  * A mutation that creates or replaces the document at the given key with the
@@ -197,8 +217,12 @@ class Mutation {
 class SetMutation : public Mutation {
  public:
   SetMutation(DocumentKey&& key,
-              FieldValue&& value,
+              ObjectValue&& value,
               Precondition&& precondition);
+
+  Type type() const override {
+    return Mutation::Type::kSet;
+  }
 
   MaybeDocumentPtr ApplyToRemoteDocument(
       const MaybeDocumentPtr& maybe_doc,
@@ -209,8 +233,16 @@ class SetMutation : public Mutation {
       const MaybeDocument* base_doc,
       const Timestamp& local_write_time) const override;
 
+  /** Returns the object value to use when setting the document. */
+  const ObjectValue& value() const {
+    return value_;
+  }
+
+ protected:
+  bool equal_to(const Mutation& other) const override;
+
  private:
-  const FieldValue value_;
+  const ObjectValue value_;
 };
 
 /**
@@ -229,9 +261,13 @@ class SetMutation : public Mutation {
 class PatchMutation : public Mutation {
  public:
   PatchMutation(DocumentKey&& key,
-                FieldValue&& value,
+                ObjectValue&& value,
                 FieldMask&& mask,
                 Precondition&& precondition);
+
+  Type type() const override {
+    return Mutation::Type::kPatch;
+  }
 
   MaybeDocumentPtr ApplyToRemoteDocument(
       const MaybeDocumentPtr& maybe_doc,
@@ -242,11 +278,29 @@ class PatchMutation : public Mutation {
       const MaybeDocument* base_doc,
       const Timestamp& local_write_time) const override;
 
- private:
-  FieldValue PatchDocument(const MaybeDocument* maybe_doc) const;
-  FieldValue PatchObject(FieldValue obj) const;
+  /**
+   * Returns the fields and associated values to use when patching the document.
+   */
+  const ObjectValue& value() const {
+    return value_;
+  }
 
-  const FieldValue value_;
+  /**
+   * Returns the mask to apply to value(), where only fields that are in both
+   * the field_mask and the value will be updated.
+   */
+  const FieldMask& mask() const {
+    return mask_;
+  }
+
+ protected:
+  bool equal_to(const Mutation& other) const override;
+
+ private:
+  ObjectValue PatchDocument(const MaybeDocument* maybe_doc) const;
+  ObjectValue PatchObject(ObjectValue obj) const;
+
+  const ObjectValue value_;
   const FieldMask mask_;
 };
 
@@ -254,6 +308,10 @@ class PatchMutation : public Mutation {
 class DeleteMutation : public Mutation {
  public:
   DeleteMutation(DocumentKey&& key, Precondition&& precondition);
+
+  Type type() const override {
+    return Mutation::Type::kDelete;
+  }
 
   MaybeDocumentPtr ApplyToRemoteDocument(
       const MaybeDocumentPtr& maybe_doc,

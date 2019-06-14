@@ -19,6 +19,9 @@
 #import "Firestore/Protos/objc/firestore/local/MaybeDocument.pbobjc.h"
 #import "Firestore/Source/Core/FSTQuery.h"
 #import "Firestore/Source/Local/FSTMemoryPersistence.h"
+#import "Firestore/Source/Model/FSTDocument.h"
+
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::DocumentKeySet;
@@ -45,8 +48,16 @@ size_t DocumentKeyByteSize(const DocumentKey& key) {
 }
 }  // namespace
 
+MemoryRemoteDocumentCache::MemoryRemoteDocumentCache(
+    FSTMemoryPersistence* persistence) {
+  persistence_ = persistence;
+}
+
 void MemoryRemoteDocumentCache::Add(FSTMaybeDocument* document) {
   docs_ = docs_.insert(document.key, document);
+
+  persistence_.indexManager->AddToCollectionParentIndex(
+      document.key.path().PopLast());
 }
 
 void MemoryRemoteDocumentCache::Remove(const DocumentKey& key) {
@@ -71,6 +82,10 @@ MaybeDocumentMap MemoryRemoteDocumentCache::GetAll(const DocumentKeySet& keys) {
 }
 
 DocumentMap MemoryRemoteDocumentCache::GetMatching(FSTQuery* query) {
+  HARD_ASSERT(
+      ![query isCollectionGroupQuery],
+      "CollectionGroup queries should be handled in LocalDocumentsView");
+
   DocumentMap results;
 
   // Documents are ordered by key, so we can use a prefix scan to narrow down
