@@ -14,6 +14,7 @@ import Hype
 
 /// A base class for the example controllers
 open class BaseChatViewController: MessagesViewController, MessagesDataSource {
+    
     var messages: [Message] = []
     
     let formatter: DateFormatter = {
@@ -73,8 +74,8 @@ open class BaseChatViewController: MessagesViewController, MessagesDataSource {
     
     // MARK: - MessagesDataSource
     
-    public func currentSender() -> Sender {
-        return Sender(id: (Auth.auth().currentUser?.uid)!, displayName: (Auth.auth().currentUser?.displayName)!)
+    public func currentSender() -> SenderType {
+        return SenderType(senderId: (Auth.auth().currentUser?.uid)!, displayName: (Auth.auth().currentUser?.displayName)!)
     }
     
     public func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {

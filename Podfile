@@ -6,12 +6,14 @@ target 'Drifter' do
   use_frameworks!
 
   # Pods for Drifter
-  pod 'Firebase'
-  pod 'FirebaseUI'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
   pod 'ChameleonFramework'
   pod 'TransitionButton'
-  pod 'MessageKit'
-  pod 'MessageInputBar', :git => 'https://github.com/MessageKit/MessageInputBar.git', :branch => 'master'
+  pod 'MessageKit', :git => 'https://github.com/MessageKit/MessageKit', :branch => '3.0.0-swift5'
+  pod 'MessageInputBar'
   pod 'IGListKit', '~> 3.0'
   pod 'SwipeableTabBarController'
 

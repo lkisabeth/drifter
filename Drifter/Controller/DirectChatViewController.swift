@@ -8,8 +8,8 @@
 
 import Firebase
 import MapKit
-import MessageInputBar
 import MessageKit
+import MessageInputBar
 import UIKit
 import Hype
 
@@ -98,7 +98,7 @@ open class DirectChatViewController: BaseChatViewController, PeerDelegate {
         messageInputBar.sendButton.image = #imageLiteral(resourceName: "ic_up")
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.imageView?.layer.cornerRadius = 16
-        messageInputBar.textViewPadding.right = -38
+        messageInputBar.middleContentViewPadding.right = -38
         /* let charCountButton = InputBarButtonItem()
             .configure {
                 $0.title = "0/280"
@@ -145,12 +145,12 @@ open class DirectChatViewController: BaseChatViewController, PeerDelegate {
     
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section - 1 >= 0 else { return false }
-        return messages[indexPath.section].sender == messages[indexPath.section - 1].sender
+        return messages[indexPath.section].sender.senderId == messages[indexPath.section - 1].sender.senderId
     }
     
     func isNextMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section + 1 < messages.count else { return false }
-        return messages[indexPath.section].sender == messages[indexPath.section + 1].sender
+        return messages[indexPath.section].sender.senderId == messages[indexPath.section + 1].sender.senderId
     }
     
     func setTypingIndicatorHidden(_ isHidden: Bool, performUpdates updates: (() -> Void)? = nil) {
@@ -323,7 +323,7 @@ extension DirectChatViewController: MessagesLayoutDelegate {
 
 // MARK: - MessageInputBarDelegate
 
-extension DirectChatViewController: MessageInputBarDelegate {
+extension DirectChatViewController: InputBarAccessoryViewDelegate {
     public func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         for component in inputBar.inputTextView.components {
             if let str = component as? String {

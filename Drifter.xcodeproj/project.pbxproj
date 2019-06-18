@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,9 +46,9 @@
 		07E9F2E721EA63340040DC4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */; };
 		07F9A1DC21EF896A00917650 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9A1DB21EF896A00917650 /* Peer.swift */; };
 		07F9A1E221EF8A4700917650 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9A1E121EF8A4700917650 /* UIColor+Extensions.swift */; };
-		0E4C1C213552830DF9950CE7 /* Pods_DrifterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E40CAB51E72474029AFA52 /* Pods_DrifterTests.framework */; };
-		213B4A83CAD3EB664382969C /* Pods_DrifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C60A8939B3E713D29E87146 /* Pods_DrifterUITests.framework */; };
-		59752FB240AE65ADB2EECF80 /* Pods_Drifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE8F318851DDCEC57F24C9F /* Pods_Drifter.framework */; };
+		207626E64B6648CF97DF1C9B /* Pods_Drifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A636CD88A11216141B919 /* Pods_Drifter.framework */; };
+		53D24A7F1EDDB4314101789C /* Pods_DrifterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361E8DD8C69A425CE6F451C5 /* Pods_DrifterTests.framework */; };
+		EBE0918258E2630D1ABB6370 /* Pods_DrifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693DE8C2C37204FF238CFDBC /* Pods_DrifterUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,15 +126,15 @@
 		07E9F2E621EA63340040DC4F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07F9A1DB21EF896A00917650 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		07F9A1E121EF8A4700917650 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		5C60A8939B3E713D29E87146 /* Pods_DrifterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrifterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		081A636CD88A11216141B919 /* Pods_Drifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drifter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		361E8DD8C69A425CE6F451C5 /* Pods_DrifterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrifterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		693DE8C2C37204FF238CFDBC /* Pods_DrifterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrifterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7615989A83179E062A0D35F1 /* Pods-DrifterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterTests/Pods-DrifterTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B25FE1D554ACFCB9D2E783B /* Pods-Drifter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drifter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drifter/Pods-Drifter.release.xcconfig"; sourceTree = "<group>"; };
 		8CF9052FD0CB11D1A094A34D /* Pods-DrifterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterUITests/Pods-DrifterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C4F5208D085DC784480D2337 /* Pods-DrifterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterTests/Pods-DrifterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D836A4B03BDC04CC89D81B30 /* Pods-Drifter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drifter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drifter/Pods-Drifter.debug.xcconfig"; sourceTree = "<group>"; };
-		DAE8F318851DDCEC57F24C9F /* Pods_Drifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drifter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE9E79143F8646CBB670F8C /* Pods-DrifterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrifterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrifterUITests/Pods-DrifterUITests.release.xcconfig"; sourceTree = "<group>"; };
-		F6E40CAB51E72474029AFA52 /* Pods_DrifterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrifterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,7 @@
 				07435C8821FF928B00EC5351 /* Hype.framework in Frameworks */,
 				07017B9821E7F9B400A8FDE8 /* StoreKit.framework in Frameworks */,
 				07017B9621E7F9B100A8FDE8 /* AudioToolbox.framework in Frameworks */,
-				59752FB240AE65ADB2EECF80 /* Pods_Drifter.framework in Frameworks */,
+				207626E64B6648CF97DF1C9B /* Pods_Drifter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E4C1C213552830DF9950CE7 /* Pods_DrifterTests.framework in Frameworks */,
+				53D24A7F1EDDB4314101789C /* Pods_DrifterTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				213B4A83CAD3EB664382969C /* Pods_DrifterUITests.framework in Frameworks */,
+				EBE0918258E2630D1ABB6370 /* Pods_DrifterUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,9 +179,9 @@
 				07017B9521E7F9B100A8FDE8 /* AudioToolbox.framework */,
 				07017B9321E7F99600A8FDE8 /* NetworkExtension.framework */,
 				07017B9121E7F98200A8FDE8 /* ExternalAccessory.framework */,
-				DAE8F318851DDCEC57F24C9F /* Pods_Drifter.framework */,
-				F6E40CAB51E72474029AFA52 /* Pods_DrifterTests.framework */,
-				5C60A8939B3E713D29E87146 /* Pods_DrifterUITests.framework */,
+				081A636CD88A11216141B919 /* Pods_Drifter.framework */,
+				361E8DD8C69A425CE6F451C5 /* Pods_DrifterTests.framework */,
+				693DE8C2C37204FF238CFDBC /* Pods_DrifterUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,9 +352,8 @@
 				07C822C121E6F546001A2832 /* Sources */,
 				07C822C221E6F546001A2832 /* Frameworks */,
 				07C822C321E6F546001A2832 /* Resources */,
-				5BFAFC3B1BB3034829C5A000 /* [CP] Embed Pods Frameworks */,
-				E0A3C20D24C97AD288E55421 /* [CP] Copy Pods Resources */,
 				07435C8321FF920A00EC5351 /* Embed Frameworks */,
+				7728BDD9AD533F5A2F4DEE4D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -553,68 +552,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5BFAFC3B1BB3034829C5A000 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
-				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
-				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
-				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
-				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5C1C3EBC2979BC543B60DB10 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -637,6 +574,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7728BDD9AD533F5A2F4DEE4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Drifter/Pods-Drifter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C508D285EA9810459F190C2D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -657,42 +611,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E0A3C20D24C97AD288E55421 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Drifter/Pods-Drifter-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drifter/Pods-Drifter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -903,7 +821,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Drifter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -932,7 +850,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Drifter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

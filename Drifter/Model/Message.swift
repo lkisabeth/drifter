@@ -13,7 +13,7 @@ import Hype
 
 class Message: MessageType {
     // sender and kind are required by the MessageKit SDK being used for chat
-    public var sender: Sender = Sender(id: "", displayName: "")
+    public var sender: SenderType = "" as! SenderType
     public var kind: MessageKind = .text("")
     public var hypMessage: HYPMessage?
     public var messageId: String = ""
